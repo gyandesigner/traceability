@@ -1,6 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
 const env = process.env.NODE_ENV || 'development';
-
-
 const devConfig = {
     environment: "development",
     port: process.env.APP_PORT,
@@ -14,9 +14,7 @@ const devConfig = {
     "jwtSecret": process.env.JWT_SECRET
 }
 const prodConfig = {
-
 }
-
 const config = {
 	development: devConfig,
 	production: prodConfig
