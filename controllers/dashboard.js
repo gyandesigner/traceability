@@ -27,7 +27,9 @@ const facilityMasterPage = async (req, res) => {
 
     try { 
 
-        const facilityRes = await fetch('http://localhost:3000/get-facility-master', { method: 'POST' }); 
+        const facilityRes = await fetch('http://localhost:5500/get-facility-master', { method: 'POST' }); 
+        console.log(facilityRes)
+        console.log("facilityRes")
 
         if (!facilityRes.ok) {
             model.facility_master = [];
