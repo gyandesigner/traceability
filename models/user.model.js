@@ -86,4 +86,4 @@ const getUserByEmail = async (userData) => {
 
 
 
-export { findUserByEmail, createUser, getUserByEmail };
+export default { findUserByEmail, createUser, getUserByEmail };

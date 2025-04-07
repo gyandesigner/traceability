@@ -1,0 +1,123 @@
+<div class="page-wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-header">
+          <div class="row">
+            <div class="col">
+              <h3 class="page-title">Add Supplier</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+
+          <div class="card-header">
+            <h5 class="card-title">Supplier Information</h5>
+          </div>
+
+          <div class="card-body">
+            <form action="#" id="add-supplier">
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Supplier Name<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="name">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Email<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="email">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Telephone/Mobile<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="mobile">
+                </div>
+              </div>
+              <h5 class="card-title">Postal Address</h5>
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label class="form-label">Address<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="address">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Country<span class="text-danger">*</span></label>
+                  <select class="form-select" name="country">
+                    <option selected="" value="0">Select Country</option>
+                    <option value="USA">USA</option>
+                    <option value="France">France</option>
+                    <option value="India">India</option>
+                    <option value="Spain">Spain</option>
+                  </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">City<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="city">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Province/State<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="state">
+                </div>
+              </div>
+              
+              <div class="col-md-4 mb-3">
+                <label class="form-label">Agent<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="agent">
+              </div>
+              <h5 class="card-title">Facility Master</h5>
+              <div class="row">
+                <div class="mb-3 d-sm-flex align-items-center" style="gap:30px;">
+                  <% if(facility_master && facility_master.length > 0) { %>
+                    <% facility_master.forEach((facility, idx) => { %>
+                      <div class="form-check form-check-md d-flex align-items-center">
+                        <input class="form-check-input" type="checkbox" name="facility" value="<%= facility.identifier %>" id="<%= facility.id %>">
+                        <label class="form-check-label" for="<%= facility.id %>"><%= facility.name %></label>
+                      </div>
+                    <% }) %>
+                  <% } %>
+                </div>
+              </div>
+              <div class="text-end">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<%- contentFor('pageMeta') %>
+<!-- Meta Tags -->
+
+<!-- Title -->
+<title><%= title %></title>
+
+<%- contentFor('topStyles') %>
+<link rel="stylesheet" href="/assets/plugins/tabler-icons/tabler-icons.css">
+<link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css">
+<link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="/assets/plugins/flatpickr/flatpickr.min.css">
+<link rel="stylesheet" href="/assets/plugins/%40simonwep/pickr/themes/nano.min.css">
+<link rel="stylesheet" href="/assets/plugins/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<%- contentFor('bottomScript') %>
+<script>
+   
+</script>
+<script type="text/javascript" src="/assets/js/jquery-3.7.1.min.js"></script> 
+<script type="text/javascript" src="/assets/js/bootstrap.bundle.min.js"></script> 
+<script type="text/javascript" src="/assets/js/feather.min.js"></script> 
+<script type="text/javascript" src="/assets/js/jquery.slimscroll.js"></script> 
+<script type="text/javascript" src="/assets/js/moment.min.js"></script> 
+<script type="text/javascript" src="/assets/plugins/daterangepicker/daterangepicker.js"></script> 
+<script type="text/javascript" src="/assets/plugins/apexchart/apexcharts.min.js"></script> 
+<script type="text/javascript" src="/assets/plugins/apexchart/chart-data.js"></script> 
+<script type="text/javascript" src="/assets/js/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="/assets/js/dataTables.bootstrap5.min.js"></script> 
+<script type="text/javascript" src="/assets/js/jsonscript.js"></script> 
+<script type="text/javascript" src="/assets/js/script.js"></script>
+<script type="text/javascript" src="/assets/js/add-supplier.js"></script>

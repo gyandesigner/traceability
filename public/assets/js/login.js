@@ -39,7 +39,7 @@ $(document).ready(function(){
 
 			$.ajax({
                 type: 'POST',
-                url: '/user-login',
+                url: '/api/user-login',
                 data: data,
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",

@@ -1,13 +1,12 @@
 import express from 'express';
-import cookieParser from 'cookie-parser';
 import expressLayouts from 'express-ejs-layouts';
-import userRoutes from './routes/userRoutes.js';
-import dashboardRoutes from './routes/dashboardRoutes.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser';
 import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 dotenv.config();
+import pageRoutes from "./routes/page/routes.js"
+import apiRoutes from "./routes/api/routes.js"
 
 // Get the directory name of the current module
 const __filename = fileURLToPath(import.meta.url);
@@ -26,12 +25,8 @@ app.set('views', join(__dirname, 'views'));
 
 app.use('/assets', express.static(join(__dirname, 'public/assets')));
 
-app.get('/', (req, res) => {
-  res.redirect('/login');
-});
-
-app.use('/', userRoutes);
-app.use('/', dashboardRoutes);
+app.use('/api', apiRoutes);
+app.use('/', pageRoutes);
 
 
 

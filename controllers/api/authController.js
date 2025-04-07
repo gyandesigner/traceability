@@ -1,18 +1,33 @@
-import * as userModel from '../models/user.model.js';
+import jwt from 'jsonwebtoken';
+import userModel from '../../models/user.model.js';
+import config from '../../config/config.js';
+import bcrypt from 'bcryptjs';
 
-const registerPage = async (req,res) => {
 
-    const model = {
-        title: '',
-        layout: 'layouts/layout'
+const userLogin = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Username and password are required' });
+        }
+        const userData = {email};
+        const user = await userModel.getUserByEmail(userData);
+        if (!user) {
+            return res.status(401).json({ message: 'Email not found' });
+        }
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+            throw new Error('Invalid credentials');
+        }
+        const token = jwt.sign( { userId: user.id, role: user.role }, config.jwtSecret, { expiresIn: '1h' } );        
+        res.cookie('jwt', token, { httpOnly: true });
+        res.json({ success: true, token });
+
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
-    
-    model.title = 'Login | Tracibility';
-    model.layout = 'layouts/login-layout';
-
-    res.render('register', model);
 }
-
 
 const createUser = async (req, res) => {
     try {
@@ -76,4 +91,5 @@ const createUser = async (req, res) => {
     }
 }
 
-export { registerPage, createUser };
+
+export default { userLogin, createUser };

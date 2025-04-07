@@ -39,6 +39,7 @@ const executeQuery = async (pool, sql, params = []) => {
         throw new Error('Database connection failed');
     }
     try {
+        console.log("executing query")
         const [results] = await pool.execute(sql, params);
         return results;
     } catch (error) {

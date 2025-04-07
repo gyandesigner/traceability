@@ -109,7 +109,7 @@ $(document).ready(function(){
 
 			$.ajax({
                 type: 'POST',
-                url: '/create-user',
+                url: '/api/create-user',
                 data: data,
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",

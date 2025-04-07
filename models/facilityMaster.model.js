@@ -1,14 +1,20 @@
 import { createConnection, executeQuery, closeConnection } from '../config/database.js';
 
 
-const fetchFacilityData = async (userData) => {
+const fetchFacilityData = async () => {
+  console.log("connecting")
+  console.log("XXXXXXXXXXXXXXXXXXx")
   const pool = createConnection();
   try {
-    const sql = `SELECT * FROM facilityMaster`;  
+    console.log("in try")
+    const sql = `SELECT * FROM facilitymaster`;  
     const result = await executeQuery( pool, sql);
-
+    
     return result;
   } catch (error) {
+    console.log("in error")
+    console.log(error)
+    console.log("XXXXXXXXXXXXXXXXXXx")
     console.error('Failed to check user!', error);
   } finally {    
     await closeConnection(pool);
@@ -57,4 +63,4 @@ async function addNewFacility(userData) {
   }
 }
 
-export { fetchFacilityData, deleteFacility, addNewFacility };
+export default { fetchFacilityData, deleteFacility, addNewFacility };
