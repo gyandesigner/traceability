@@ -10,7 +10,7 @@ const getFacilityMasterPage = async (req,res) => {
 
     try { 
 
-        const facilityRes = await fetch('http://localhost:5600/api/get-all-facility', { method: 'POST' }); 
+        const facilityRes = await fetch('http://localhost:5500/api/get-all-facility', { method: 'POST' }); 
         console.log(facilityRes)
         console.log("facilityRes")
 
