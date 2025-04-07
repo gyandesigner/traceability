@@ -1,16 +1,27 @@
-<!-- Main Wrapper -->
 <div class="main-wrapper">
-    <div class="account-content">
-        <div class="d-flex flex-wrap w-100 vh-100 overflow-hidden account-bg-01">
-            <div
-                class="d-flex align-items-center justify-content-center flex-wrap vh-100 overflow-auto p-4 w-50 bg-backdrop">
-                <form id="loginForm" class="flex-fill">
-                    <div class="mx-auto mw-450">
-                        <div class="mb-4">
-                            <h4 class="mb-2 fs-20">Sign In</h4>
-                            <p>Access the CRMS panel using your email and passcode.</p>
+  <div class="account-content">
+    <div class="d-flex flex-wrap w-100 vh-100 overflow-hidden">
+      <div class="d-flex align-items-center justify-content-center flex-fill flex-wrap vh-100 overflow-auto">
+        <div class="login-shapes">
+          <div class="login-right-shape"><img src="assets/img/authentication/shape-01.png" alt="Shape"></div>
+          <div class="login-left-shape"><img src="assets/img/authentication/shape-02.png" alt="Shape"></div>
+        </div>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-5">
+              <div class="login-content user-login">
+                <div class="text-center mb-4"><img src="assets/img/logo.svg" class="img-fluid" alt="Logo"></div>
+                <!--<form action="index.html">-->
+				  <form id="loginForm" class="flex-fill">
+                  <div class="card border p-sm-3">
+                    <div class="card-body p-4">
+                      <div class="text-center">
+                        <p class="text-default mb-3">Welcome back!</p>
+                        <div class="mb-3"><span class="avatar avatar-xxxl rounded-circle mb-4"><img src="assets/img/profiles/avatar-14.jpg" class="img-fluid rounded-circle" alt="Profile"></span>
+                          <h5 class="fs-18 fw-semibold">Admin</h5>
                         </div>
-                        <div class="mb-3">
+                      </div>
+						 <div class="mb-3">
                             <label class="col-form-label">Email Address</label>
                             <div class="position-relative">
                                 <span class="input-icon-addon">
@@ -27,25 +38,25 @@
                             </div>
                         </div>
                         <div class="mb-3 mt-4">
-                            <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                            <button type="submit" class="btn btn-primary w-100">Log In</button>
                         </div>
-                        <div class="mb-3">
+                        <!--<div class="mb-3">
                             <h6>New on our platform?&nbsp;<a href="/register" class="text-purple link-hover">Create an account</a></h6>
-                        </div>
-                        <!--
-                        <div class="text-center">
-                            <p class="fw-medium text-gray">Copyright &copy; 2025 - CRMS</p>
-                        </div> -->
+                        </div>-->
                     </div>
+                  </div>
                 </form>
+              </div>
+              <div class="text-center">
+                <p class="fw-medium text-gray">Copyright &copy; 2025 - Traceability <br>Powered by <a target="_blank" href="powered by www.indochineintl.com">www.indochineintl.com</a></p>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-
+  </div>
 </div>
-<!-- /Main Wrapper -->
-
-
 
 <%- contentFor('pageMeta') %>
 <!-- Meta Tags -->
