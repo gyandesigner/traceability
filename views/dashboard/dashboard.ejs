@@ -5,19 +5,43 @@
         <div class="page-header">
           <div class="row align-items-center">
             <div class="col-md-4">
-              <h3 class="page-title">Deals Dashboard</h3>
-            </div>
-            <div class="col-md-8 float-end ms-auto">
-              <div class="d-flex title-head">
-                <div class="daterange-picker d-flex align-items-center justify-content-center">
-                  <div class="form-sort me-2"><i class="ti ti-calendar"></i>
-                    <input type="text" class="form-control date-range bookingrange">
-                  </div>
-                  <div class="head-icons mb-0"><a href="index-2.html" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Refresh"><i class="ti ti-refresh-dot"></i></a><a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header"><i class="ti ti-chevrons-up"></i></a></div>
-                </div>
-              </div>
+              <h3 class="page-title">Dashboard</h3>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-3 col-lg-6">
+        <div class="campaign-box bg-danger-light">
+          <div class="campaign-img"> <span> <i class="ti ti-brand-campaignmonitor"></i> </span>
+            <p>Users</p>
+          </div>
+          <h2>1</h2>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-6">
+        <div class="campaign-box bg-warning-light">
+          <div class="campaign-img"> <span> <i class="ti ti-send"></i> </span>
+            <p>Facility Masters</p>
+          </div>
+          <h2>9</h2>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-6">
+        <div class="campaign-box bg-purple-light">
+          <div class="campaign-img"> <span> <i class="ti ti-brand-feedly"></i> </span>
+            <p>Supplier</p>
+          </div>
+          <h2>1000</h2>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-6">
+        <div class="campaign-box bg-success-light">
+          <div class="campaign-img"> <span> <i class="ti ti-brand-pocket"></i> </span>
+            <p>ASN</p>
+          </div>
+          <h2>24988</h2>
         </div>
       </div>
     </div>
@@ -26,10 +50,212 @@
         <div class="card flex-fill">
           <div class="card-header border-0 pb-0">
             <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3">
-              <h4><i class="ti ti-grip-vertical me-1"></i>Recently Created Deals</h4>
-              <div class="dropdown"><a class="dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);"><i class="ti ti-calendar-check me-2"></i>Last 30 days</a>
-                <div class="dropdown-menu dropdown-menu-end"><a href="javascript:void(0);" class="dropdown-item">Last 15 days</a><a href="javascript:void(0);" class="dropdown-item">Last 30 days</a></div>
-              </div>
+              <h4><i class="ti ti-grip-vertical me-1"></i>Recently Created Facility Masters</h4>
+              <div class="dropdown"><a href="javascript:void(0);">View All</a> </div>
+            </div>
+          </div>
+          <div class="card-body"> 
+            <div class="table-responsive custom-table">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th class="no-sort"> <label class="checkboxs">
+                        <input type="checkbox" id="select-all">
+                        <span class="checkmarks"></span></label></th>
+                    <th>User Name</th>
+                    <th>Date</th>
+                    <th>Facility Id</th>
+                    <th>Facility Name</th>
+                    <th>Status</th>
+                    <th class="text-end">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><label class="checkboxs">
+                        <input type="checkbox">
+                        <span class="checkmarks"></span></label></td>
+                    <td>Gyan Singh</td>
+                    <td>25 Sep 2023</td>
+                    <td>F-FM</td>
+                    <td>Fabric Mill/Knitting</td>
+                    <td><span class="badge badge-pill badge-status bg-success">Acitve</span></td>
+                    <td class="text-end"><div class="dropdown table-action"> <a href="javascript:void(0)" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa fa-ellipsis-v"></i> </a>
+                        <div class="dropdown-menu dropdown-menu-right"> <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_edit"> <i class="ti ti-edit text-blue"></i>Edit </a> <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices"> <i class="ti ti-trash text-danger"></i>Delete </a> </div>
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <td><label class="checkboxs">
+                        <input type="checkbox">
+                        <span class="checkmarks"></span></label></td>
+                    <td>Vivek</td>
+                    <td>25 Sep 2023</td>
+                    <td>F-GP</td>
+                    <td>Garment Production</td>
+                    <td><span class="badge badge-pill badge-status bg-danger">Inactive</span></td>
+                    <td class="text-end"><div class="dropdown table-action"> <a href="javascript:void(0)" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa fa-ellipsis-v"></i> </a>
+                        <div class="dropdown-menu dropdown-menu-right"> <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_edit"> <i class="ti ti-edit text-blue"></i>Edit </a> <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices"> <i class="ti ti-trash text-danger"></i>Delete </a> </div>
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <td><label class="checkboxs">
+                        <input type="checkbox">
+                        <span class="checkmarks"></span></label></td>
+                    <td>Gyan Singh</td>
+                    <td>25 Sep 2023</td>
+                    <td>F-DY</td>
+                    <td>Dyeing</td>
+                    <td><span class="badge badge-pill badge-status bg-success">Acitve</span></td>
+                    <td class="text-end"><div class="dropdown table-action"> <a href="javascript:void(0)" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa fa-ellipsis-v"></i> </a>
+                        <div class="dropdown-menu dropdown-menu-right"> <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_edit"> <i class="ti ti-edit text-blue"></i>Edit </a> <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices"> <i class="ti ti-trash text-danger"></i>Delete </a> </div>
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <td><label class="checkboxs">
+                        <input type="checkbox">
+                        <span class="checkmarks"></span></label></td>
+                    <td>Ramesh Kumar</td>
+                    <td>25 Sep 2023</td>
+                    <td>F-YA</td>
+                    <td>Yarn</td>
+                    <td><span class="badge badge-pill badge-status bg-danger">Inactive</span></td>
+                    <td class="text-end"><div class="dropdown table-action"> <a href="javascript:void(0)" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa fa-ellipsis-v"></i> </a>
+                        <div class="dropdown-menu dropdown-menu-right"> <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_edit"> <i class="ti ti-edit text-blue"></i>Edit </a> <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices"> <i class="ti ti-trash text-danger"></i>Delete </a> </div>
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <td><label class="checkboxs">
+                        <input type="checkbox">
+                        <span class="checkmarks"></span></label></td>
+                    <td>Vivek</td>
+                    <td>25 Sep 2023</td>
+                    <td>F-FI</td>
+                    <td>Fibre</td>
+                    <td><span class="badge badge-pill badge-status bg-success">Acitve</span></td>
+                    <td class="text-end"><div class="dropdown table-action"> <a href="javascript:void(0)" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa fa-ellipsis-v"></i> </a>
+                        <div class="dropdown-menu dropdown-menu-right"> <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_edit"> <i class="ti ti-edit text-blue"></i>Edit </a> <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices"> <i class="ti ti-trash text-danger"></i>Delete </a> </div>
+                      </div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 d-flex">
+        <div class="card flex-fill">
+          <div class="card-header border-0 pb-0">
+            <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+              <h4><i class="ti ti-grip-vertical me-1"></i>Recently Created Supplier</h4>
+             <div class="dropdown"><a href="javascript:void(0);">View All</a> </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive custom-table">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Supplier ID</th>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Registration ID</th>
+                    <th>Agent</th>
+                    <th>Address</th>
+                    <th>Country</th>
+                    <th>City</th>
+                    <th>Province/State</th>
+                    <th>Facility Master</th>
+                    <th>Status</th>
+                    <th class="text-end">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>SID-2021</td>
+                    <td>25 Sep 2024</td>
+                    <td>Raj Aryan</td>
+                    <td><a href="javascript:void(0)" class="title-name">rajaryan@gmail.com</a></td>
+                    <td>8076371347</td>
+                    <td>#686784638</td>
+                    <td>Daman</td>
+                    <td>Ashok Colony Morar Gwalior</td>
+                    <td>India</td>
+                    <td>Gwalior</td>
+                    <td>Madhya Pradesh</td>
+                    <td>FM | GP | DY | YA | FI</td>
+                    <td><span class="badge badge-pill badge-status bg-success">Active</span></td>
+                    <td class="text-end"><div class="dropdown table-action"> <a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa fa-ellipsis-v"></i> </a>
+                        <div class="dropdown-menu dropdown-menu-right"> <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_edit"> <i class="ti ti-edit text-blue"></i>Edit </a> <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices"> <i class="ti ti-trash text-danger"></i>Delete </a> </div>
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <td>SID-2021</td>
+                    <td>25 Sep 2024</td>
+                    <td>Raj Aryan</td>
+                    <td><a href="javascript:void(0)" class="title-name">rajaryan@gmail.com</a></td>
+                    <td>8076371347</td>
+                    <td>#686784638</td>
+                    <td>Daman</td>
+                    <td>Ashok Colony Morar Gwalior</td>
+                    <td>India</td>
+                    <td>Gwalior</td>
+                    <td>Madhya Pradesh</td>
+                    <td>FM | GP | DY</td>
+                    <td><span class="badge badge-pill badge-status bg-danger">Inactive</span></td>
+                    <td class="text-end"><div class="dropdown table-action"> <a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa fa-ellipsis-v"></i> </a>
+                        <div class="dropdown-menu dropdown-menu-right"> <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_edit"> <i class="ti ti-edit text-blue"></i>Edit </a> <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices"> <i class="ti ti-trash text-danger"></i>Delete </a> </div>
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <td>SID-2021</td>
+                    <td>25 Sep 2024</td>
+                    <td>Raj Aryan</td>
+                    <td><a href="javascript:void(0)" class="title-name">rajaryan@gmail.com</a></td>
+                    <td>8076371347</td>
+                    <td>#686784638</td>
+                    <td>Daman</td>
+                    <td>Ashok Colony Morar Gwalior</td>
+                    <td>India</td>
+                    <td>Gwalior</td>
+                    <td>Madhya Pradesh</td>
+                    <td>GP | DY | YA | FI</td>
+                    <td><span class="badge badge-pill badge-status bg-danger">Inactive</span></td>
+                    <td class="text-end"><div class="dropdown table-action"> <a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa fa-ellipsis-v"></i> </a>
+                        <div class="dropdown-menu dropdown-menu-right"> <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_edit"> <i class="ti ti-edit text-blue"></i>Edit </a> <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices"> <i class="ti ti-trash text-danger"></i>Delete </a> </div>
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <td>SID-2021</td>
+                    <td>25 Sep 2024</td>
+                    <td>Raj Aryan</td>
+                    <td><a href="javascript:void(0)" class="title-name">rajaryan@gmail.com</a></td>
+                    <td>8076371347</td>
+                    <td>#686784638</td>
+                    <td>Daman</td>
+                    <td>Ashok Colony Morar Gwalior</td>
+                    <td>India</td>
+                    <td>Gwalior</td>
+                    <td>Madhya Pradesh</td>
+                    <td>FM | GP | YA | FI</td>
+                    <td><span class="badge badge-pill badge-status bg-success">Active</span></td>
+                    <td class="text-end"><div class="dropdown table-action"> <a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa fa-ellipsis-v"></i> </a>
+                        <div class="dropdown-menu dropdown-menu-right"> <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_edit"> <i class="ti ti-edit text-blue"></i>Edit </a> <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_invoices"> <i class="ti ti-trash text-danger"></i>Delete </a> </div>
+                      </div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 d-flex">
+        <div class="card flex-fill">
+          <div class="card-header border-0 pb-0">
+            <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+              <h4><i class="ti ti-grip-vertical me-1"></i>Recently Created ASN</h4>
+             <div class="dropdown"><a href="javascript:void(0);">View All</a> </div>
             </div>
           </div>
           <div class="card-body">
@@ -51,101 +277,13 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6 d-flex">
-        <div class="card flex-fill">
-          <div class="card-header border-0 pb-0">
-            <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3">
-              <h4><i class="ti ti-grip-vertical me-1"></i>Deals By Stage</h4>
-              <div class="d-flex align-items-center flex-wrap row-gap-2">
-                <div class="dropdown me-2"><a class="dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);">Sales Pipeline</a>
-                  <div class="dropdown-menu dropdown-menu-end"><a href="javascript:void(0);" class="dropdown-item">Marketing Pipeline</a><a href="javascript:void(0);" class="dropdown-item">Sales Pipeline</a><a href="javascript:void(0);" class="dropdown-item">Email</a><a href="javascript:void(0);" class="dropdown-item">Chats</a><a href="javascript:void(0);" class="dropdown-item">Operational</a></div>
-                </div>
-                <div class="dropdown"><a class="dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);">Last 30 Days</a>
-                  <div class="dropdown-menu dropdown-menu-end"><a href="javascript:void(0);" class="dropdown-item">Last 30 Days</a><a href="javascript:void(0);" class="dropdown-item">Last 15 Days</a><a href="javascript:void(0);" class="dropdown-item">Last 7 Days</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div id="deals-chart"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 d-flex">
-        <div class="card flex-fill">
-          <div class="card-header border-0 pb-0">
-            <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3">
-              <h4><i class="ti ti-grip-vertical me-1"></i>Leads By Stage</h4>
-              <div class="d-flex align-items-center flex-wrap row-gap-2">
-                <div class="dropdown me-2"><a class="dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);">Marketing Pipeline</a>
-                  <div class="dropdown-menu dropdown-menu-end"><a href="javascript:void(0);" class="dropdown-item">Marketing Pipeline</a><a href="javascript:void(0);" class="dropdown-item">Sales Pipeline</a><a href="javascript:void(0);" class="dropdown-item">Email</a><a href="javascript:void(0);" class="dropdown-item">Chats</a><a href="javascript:void(0);" class="dropdown-item">Operational</a></div>
-                </div>
-                <div class="dropdown"><a class="dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);">Last 3 months</a>
-                  <div class="dropdown-menu dropdown-menu-end"><a href="javascript:void(0);" class="dropdown-item">Last 3 months</a><a href="javascript:void(0);" class="dropdown-item">Last 6 months</a><a href="javascript:void(0);" class="dropdown-item">Last 12 months</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div id="last-chart"></div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 d-flex">
-        <div class="card flex-fill">
-          <div class="card-header border-0 pb-0">
-            <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3">
-              <h4><i class="ti ti-grip-vertical me-1"></i>Won Deals Stage</h4>
-              <div class="d-flex align-items-center flex-wrap row-gap-2">
-                <div class="dropdown me-2"><a class="dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);">Marketing Pipeline</a>
-                  <div class="dropdown-menu dropdown-menu-end"><a href="javascript:void(0);" class="dropdown-item">Marketing Pipeline</a><a href="javascript:void(0);" class="dropdown-item">Sales Pipeline</a><a href="javascript:void(0);" class="dropdown-item">Email</a><a href="javascript:void(0);" class="dropdown-item">Chats</a><a href="javascript:void(0);" class="dropdown-item">Operational</a></div>
-                </div>
-                <div class="dropdown"><a class="dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);">Last 3 months</a>
-                  <div class="dropdown-menu dropdown-menu-end"><a href="javascript:void(0);" class="dropdown-item">Last 3 months</a><a href="javascript:void(0);" class="dropdown-item">Last 6 months</a><a href="javascript:void(0);" class="dropdown-item">Last 12 months</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div id="won-chart"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 d-flex">
-        <div class="card w-100">
-          <div class="card-header border-0 pb-0">
-            <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3">
-              <h4><i class="ti ti-grip-vertical me-1"></i>Deals by Year</h4>
-              <div class="d-flex align-items-center flex-wrap row-gap-2">
-                <div class="dropdown me-2"><a class="dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);">Sales Pipeline</a>
-                  <div class="dropdown-menu dropdown-menu-end"><a href="javascript:void(0);" class="dropdown-item">Marketing Pipeline</a><a href="javascript:void(0);" class="dropdown-item">Sales Pipeline</a></div>
-                </div>
-                <div class="dropdown"><a class="dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);">Last 3 months</a>
-                  <div class="dropdown-menu dropdown-menu-end"><a href="javascript:void(0);" class="dropdown-item">Last 3 months</a><a href="javascript:void(0);" class="dropdown-item">Last 6 months</a><a href="javascript:void(0);" class="dropdown-item">Last 12 months</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div id="deals-year"></div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
-
-
 <%- contentFor('pageMeta') %>
 <!-- Meta Tags -->
-
 <!-- Title -->
 <title><%= title %></title>
-
 <%- contentFor('topStyles') %>
 <link rel="stylesheet" href="/assets/plugins/tabler-icons/tabler-icons.css">
 <link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css">
@@ -156,11 +294,8 @@
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/css/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="/assets/css/style.css">
-
 <%- contentFor('bottomScript') %>
-<script>
-    console.log("vivek")
-</script>
+<script>console.log("vivek")</script>
 <script type="text/javascript" src="/assets/js/jquery-3.7.1.min.js"></script> 
 <script type="text/javascript" src="/assets/js/bootstrap.bundle.min.js"></script> 
 <script type="text/javascript" src="/assets/js/feather.min.js"></script> 
