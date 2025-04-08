@@ -1,12 +1,17 @@
 import express from 'express';
 const router = express.Router();
-import authenticateToken from "../../middleware/authMiddleware.js";
-import dashoardController from "../../controllers/pages/dashoardController.js";
-import facilityMaster from '../../controllers/pages/facilityMaster.js';
+import userAuth from "../../middleware/authMiddleware.js";
+import dashoard from "../../controllers/pages/dashoardController.js";
+import facility from '../../controllers/pages/facilityController.js';
+import supplier from '../../controllers/pages/supplierController.js';
 
 
+router.get('/dashboard', userAuth, dashoard.getDashboardPage);
+router.get('/facility', userAuth, facility.getFacilityMasterPage);
+router.get('/supplier', supplier.getSupplierListPage);
+router.get('/supplier/add', supplier.getAddSupplierListPage);
+router.get('/supplier', supplier.getSupplierListPage);
+router.get('/supplier/add', supplier.getAddSupplierListPage);
 
-router.get('/dashboard', authenticateToken, dashoardController.getDashboardPage);
-router.get('/facility-master', authenticateToken, facilityMaster.getFacilityMasterPage);
 
 export default router;
