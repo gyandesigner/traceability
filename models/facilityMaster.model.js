@@ -51,7 +51,7 @@ const addNewFacility = async (userData)  => {
 const fetchRecentFacilityData = async (length) => {
   const pool = createConnection();
   try {
-    const sql = `SELECT * FROM facilitymaster ORDER BY id DESC LIMIT ?`;
+    const sql = `SELECT * FROM facilitymaster ORDER BY _id DESC LIMIT ?`;
     const params = [`${length}`];
     const result = await executeQuery( pool, sql, params);
     return result;

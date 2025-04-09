@@ -72,7 +72,7 @@
                   <% facility_data.forEach(function(facility) { %>
                   <% const btnColor = (facility.status === 'active') ? 'success' : (facility.status === 'pending') ? 'secondary' : (facility.status === 'inactive') ? 'danger' : 'info' %>                    
                     <tr>
-                      <td><%= facility.id %></td>
+                      <td><%= facility._id %></td>
                       <td><%= facility.identifier %></td>
                       <td><%= facility.name %></td>
                       <td><span class="badge badge-pill badge-status bg-<%= btnColor %>"><%= facility.status %></span></td>
