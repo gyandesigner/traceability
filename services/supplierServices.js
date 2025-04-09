@@ -15,7 +15,7 @@ const getSupplierCount = async () => {
         return await apiHelper.get(apiUrl);
     } catch (error) {
         console.error('Error fetching supplier count:', error);
-        return [];
+        return 0;
     }
 }
 

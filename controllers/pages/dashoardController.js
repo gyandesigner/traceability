@@ -15,22 +15,18 @@ const getDashboardPage = async (req,res) => {
             supplier_count: 0,
         }
         const facilityRes = await facilityService.getLatestFacility(5);
-        console.log('Facility Response:', facilityRes);
         if(facilityRes && facilityRes.data) {
             model.facility_data = facilityRes.data;
         }
         const facilityCountRes = await facilityService.getFacilityCount();
-        console.log
         if(facilityCountRes && facilityCountRes.data) {
             model.facility_count = facilityCountRes.data;
         }
         const supplierRes = await supplierServices.getLatestSupplier(5);
-        console.log('Supplier Response:', supplierRes);
         if(supplierRes && supplierRes.data) {
             model.supplier_data = supplierRes.data;
         }
         const supplierCountRes = await supplierServices.getSupplierCount();
-        console.log('Supplier Count Response:', supplierCountRes);
         if(supplierCountRes && supplierCountRes.data) {
             model.supplier_count = supplierCountRes.data;
         }

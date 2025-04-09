@@ -17,7 +17,7 @@ const getLatestFacility = async (length) => {
         return await apiHelper.get(apiUrl);
     } catch (error) {
         console.error('Error fetching latest facilities:');
-        return [];
+        return 0;
     }
 }
 const getFacilityCount = async () => {
