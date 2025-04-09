@@ -3,88 +3,39 @@
     <div class="row">
       <div class="col-md-12">
         <div class="page-header">
-          <div class="row align-items-center">
+          <div class="row align-items-center ">
             <div class="col-12">
-              <h4 class="page-title">Facility Master</h4>
+              <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+                <h3 class="page-title">Facility Master</h3>
+                <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_facility"><i class="ti ti-square-rounded-plus me-2"></i>Add New Facility</a>
+              </div>
             </div>
           </div>
         </div>
-        <div class="card ">
-          <div class="card-header">
-            <div class="row align-items-center">
-              <div class="col-sm-4"></div>
-              <div class="col-sm-8">
-                <div class="d-flex align-items-center flex-wrap row-gap-2 justify-content-sm-end">
-                  <div class="dropdown me-2"> <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown"><i class="ti ti-package-export me-2"></i>Export</a>
-                    <div class="dropdown-menu  dropdown-menu-end">
-                      <ul>
-                        <li> <a href="javascript:void(0);" class="dropdown-item"><i class="ti ti-file-type-pdf text-danger me-1"></i>Export as PDF</a> </li>
-                        <li> <a href="javascript:void(0);" class="dropdown-item"><i class="ti ti-file-type-xls text-green me-1"></i>Export as Excel </a> </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_deal"><i class="ti ti-square-rounded-plus me-2"></i>Add New Facility</a> </div>                
-                </div>
-            </div>
-          </div>
+        <div class="card ">          
           <div class="card-body">
             <div class="table-responsive custom-table">
-              <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                <div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div>
-                <div class="row dt-row">
-                  <div class="col-sm-12 table-responsive">
-                    <table class="table datatable dataTable no-footer" id="DataTables_Table_0">
-                      <thead class="thead-light">
-                        <tr>
-                          <th class="no-sort sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label=": activate to sort column descending" style="width: 97.9531px;">
-                              <label class="checkboxs">
-                              <input type="checkbox" id="select-all">
-                              <span class="checkmarks"></span></label></th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 185.438px;">Date</th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Facility Id: activate to sort column ascending" style="width: 181.391px;">Facility Id</th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Facility Name: activate to sort column ascending" style="width: 303.797px;">Facility Name</th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 162.703px;">Status</th>
-                            <th class="text-end sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 135.828px;">Action</th></tr>
-                      </thead>
-                      <tbody>
-                        <% console.log(facility_master) %>                  
-                        <% console.log("XXXXXXXXXXXXXXXXXXXXx") %>                  
-                        <% if(facility_master.length > 0) { %>
-
-                          <% facility_master.forEach(item => { %>
-                            <tr>                        
-                              <td class="sorting_1">
-                                <label class="checkboxs">
-                                  <input type="checkbox" id="<%= item.id %>">
-                                  <span class="checkmarks"></span>
-                                </label>
-                              </td>
-                              <td><%= new Date(item.createdAt).toLocaleString() %></td>
-                              <td><%= item.identifier %></td>
-                              <td><%= item.name %></td>
-                              <td><%= item.status %></td>
-                              <td class="text-end">
-                                <div class="dropdown table-action">
-                                  <a href="javascript:void(0)" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-v"></i>
-                                  </a>
-                                  <div class="dropdown-menu dropdown-menu-right">
-                                    <button type="button" class="dropdown-item" data-id="<%= item.id %>">
-                                      <i class="ti ti-edit text-blue"></i>Edit 
-                                    </button>
-                                    <button type="button" class="dropdown-item delete-item" data-id="<%= item.id %>">
-                                      <i class="ti ti-trash text-danger"></i>Delete 
-                                    </button>
-                                  </div>
-                                </div>
-                              </td>
-                            </tr>
-                          <% }); %>
-                        <% } %>
-                      </tbody>
-                    </table></div></div><div class="row"><div class="col-sm-12 col-md-5"></div><div class="col-sm-12 col-md-7"></div></div></div>
+              <table class="table" id="facility-table">
+                <thead class="thead-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Identifier</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                </thead>
+                <tbody></tbody>
+              </table>
             </div>
-
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="datatable-length"></div>
+              </div>
+              <div class="col-md-6">
+                <div class="datatable-paginate"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -93,7 +44,7 @@
 </div>
 
   <!-- Add Facility Master Popup -->
-  <div class="modal custom-modal fade" id="add_deal" role="dialog">
+  <div class="modal custom-modal fade" id="add_facility" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -101,17 +52,24 @@
           <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"> <i class="ti ti-x"></i> </button>
         </div>
         <div class="modal-body">
-          <form id="addFacility">
+          <form id="addFacilityForm">
 			      <div class="mb-3">
               <label class="col-form-label">Facility Id</label>
-              <input type="text" class="form-control" placeholder="Enter Facility ID" name="facilityId">
+              <input type="text" class="form-control" placeholder="Enter Facility ID" name="identifier" required>
             </div>
             <div class="mb-3">
               <label class="col-form-label">Facility Name</label>
-              <input type="text" class="form-control" placeholder="Enter Facility Name" name="facilityName">
+              <input type="text" class="form-control" placeholder="Enter Facility Name" name="name" required>
+            </div>
+            <div class="d-flex align-items-center">
+              <label class="col-form-label">Status</label>
+              <div class="status-toggle ms-3">
+                <input id="f_status" class="check" type="checkbox" name="status" checked>
+                <label for="f_status" class="checktoggle">checkbox</label>
+              </div>
             </div>
             <div class="d-flex align-items-center justify-content-end">
-              <button type="button" data-bs-dismiss="offcanvas" class="btn btn-light me-2">Cancel</button>
+              <button type="button" data-bs-dismiss="modal" class="btn btn-light me-2">Cancel</button>
               <button type="submit" class="btn btn-primary">Create</button>
             </div>
           </form>
@@ -120,6 +78,55 @@
     </div>
   </div>
   <!-- Add Facility Master Popup --> 
+  
+  <!-- Edit Facility Master Popup -->
+  <div class="offcanvas offcanvas-end offcanvas-medium" tabindex="-1" id="edit_facility">
+    <div class="offcanvas-header border-bottom">
+      <h4>Edit Facility Master</h4>
+      <button type="button" class="btn-close custom-btn-close border p-1 me-0 d-flex align-items-center justify-content-center rounded-circle" data-bs-dismiss="offcanvas" aria-label="Close"> <i class="ti ti-x"></i> </button>
+    </div>
+    <div class="offcanvas-body">
+      <form action="invoices.html">
+        <div>
+          <div class="row">
+			  <div class="mb-3">
+              <label class="col-form-label">Facility Id</label>
+              <input type="text" class="form-control" placeholder="Enter Facility ID" value="GP">
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label">Facility Name<span class="text-danger"> *</span></label>
+              <input class="form-control" type="text" value="Garment Production" placeholder="Enter Facility Name">
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-end">
+          <button type="button" data-bs-dismiss="offcanvas" class="btn btn-light me-2">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add Facility</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Edit Facility Master Popup -->
+   <!-- Delete Facility Master Popup -->
+  <div class="modal fade" id="delete_facility" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="text-center">
+            <div class="avatar avatar-xl bg-danger-light rounded-circle mb-3"> <i class="ti ti-trash-x fs-36 text-danger"></i> </div>
+            <h4 class="mb-2">Remove Facility?</h4>
+            <p class="mb-0">Are you sure you want to remove <br>
+              facility you selected.</p>
+            <div class="d-flex align-items-center justify-content-center mt-4">
+              <a href="#" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+              <a href="javascript:void(0)" class="btn btn-danger delete-confirm">Yes, Delete it</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Delete Facility Master Popup -->
 
 <%- contentFor('pageMeta') %>
 <!-- Meta Tags -->
@@ -140,7 +147,7 @@
 
 <%- contentFor('bottomScript') %>
 <script>
-    console.log("vivek")
+    const facility_data = <%- JSON.stringify(facility_data) %>;
 </script>
 <script type="text/javascript" src="/assets/js/jquery-3.7.1.min.js"></script> 
 <script type="text/javascript" src="/assets/js/bootstrap.bundle.min.js"></script> 
@@ -155,6 +162,9 @@
 <script type="text/javascript" src="/assets/js/dataTables.bootstrap5.min.js"></script> 
 <script type="text/javascript" src="/assets/js/jsonscript.js"></script> 
 <script type="text/javascript" src="/assets/plugins/%40simonwep/pickr/pickr.es5.min.js"></script> 
-<script type="text/javascript" src="/assets/js/theme-colorpicker.js"></script> 
+<script type="text/javascript" src="/assets/js/theme-colorpicker.js"></script>
+<script type="text/javascript" src="/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="/assets/plugins/sweetalert/sweetalerts.min.js"></script> 
 <script type="text/javascript" src="/assets/js/script.js"></script>
+<script type="text/javascript" src="/assets/js/helper.js"></script>
 <script type="text/javascript" src="/assets/js/facilityMaster.js"></script>

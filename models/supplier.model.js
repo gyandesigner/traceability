@@ -30,4 +30,31 @@ const addSupplier = async (supplier) => {
   }
 }
 
-export default { fetchSupplierData, addSupplier };
+const fetchRecentSupplierData = async (length) => {
+  const pool = createConnection();
+  try {
+    const sql = `SELECT * FROM supplier_data ORDER BY id DESC LIMIT ?`;
+    const params = [`${length}`];
+    const result = await executeQuery( pool, sql, params);
+    return result;
+  } catch (error) {
+    throw new Error(error)
+  } finally {    
+    await closeConnection(pool);
+  }
+}
+
+const fetchSupplierCount = async () => {
+  const pool = createConnection();
+  try {
+    const sql = `SELECT COUNT(*) as count FROM supplier_data`;
+    const result = await executeQuery( pool, sql);
+    return result[0].count;
+  } catch (error) {
+    throw new Error(error)
+  } finally {    
+    await closeConnection(pool);
+  }
+}
+
+export default { fetchSupplierData, addSupplier, fetchRecentSupplierData, fetchSupplierCount };

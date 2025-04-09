@@ -15,7 +15,6 @@ const createConnection = () => {
 const checkConnection = async (pool) => {
     try {
         const connection = await pool.getConnection();
-        
         try {
             await connection.query('SELECT 1');
             return true;
@@ -34,12 +33,10 @@ const checkConnection = async (pool) => {
 
 const executeQuery = async (pool, sql, params = []) => {
     const isConnected = await checkConnection(pool);
-    
     if (!isConnected) {
         throw new Error('Database connection failed');
     }
     try {
-        console.log("executing query")
         const [results] = await pool.execute(sql, params);
         return results;
     } catch (error) {
@@ -52,7 +49,6 @@ const executeQuery = async (pool, sql, params = []) => {
 const closeConnection = async (pool) => {
     try {
         await pool.end();
-        console.log('Database connection pool closed');
     } catch (error) {
         console.error('Error closing database connection:', error);
     }
