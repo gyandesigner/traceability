@@ -26,6 +26,8 @@ function handleError(error) {
 }
 export async function get(endpoint, params = {}) {
     try {       
+        console.log('API URL:', config.apiURL + endpoint); // Log the API URL
+        console.log('Request Params:', params); // Log the request parameters
         const response = await axiosInstance.get(endpoint, { params });
         return response.data;
     } catch (error) {
