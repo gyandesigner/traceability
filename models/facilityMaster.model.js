@@ -18,7 +18,6 @@ const deleteFacilityById = async (id) =>  {
   try {
     const sql = `DELETE FROM facilitymaster WHERE _id = ?`;
     const params = [`${id}`];
-    console.log(params)
     const result = await executeQuery( pool, sql, params);
     
     if (result.affectedRows === 0) {

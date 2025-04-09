@@ -19,7 +19,6 @@ const getSupplierCount = async () => {
     }
 }
 
-
 export default {
     getLatestSupplier,
     getSupplierCount,

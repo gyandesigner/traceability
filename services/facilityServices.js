@@ -12,7 +12,6 @@ const getAllFacility = async () => {
 
 const getLatestFacility = async (length) => {
     try {
-        console.log('Length:', length);
         const apiUrl = `/get-recent-facility/${length}`;
         return await apiHelper.get(apiUrl);
     } catch (error) {
