@@ -15,6 +15,7 @@ const getDashboardPage = async (req,res) => {
             supplier_count: [],
         }
         const facilityRes = await facilityService.getLatestFacility(5);
+        console.log('facilityRes === > ', facilityRes);
         if(facilityRes && facilityRes.data) {
             model.facility_data = facilityRes.data;
         }
