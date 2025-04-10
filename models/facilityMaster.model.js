@@ -12,18 +12,34 @@ const fetchFacilityData = async () => {
     await closeConnection(pool);
   }
 };
+const _checkFacilityExists = async (id) => {
+  const pool = createConnection();
+  try {
+    const sql = `SELECT * FROM facilitymaster WHERE _id = ?`;
+    const params = [`${id}`];
+    const result = await executeQuery( pool, sql, params);
+    return result.length > 0; 
+  } catch (error) {
+    console.error('Error checking facility existence!', error);
+  } finally {    
+    await closeConnection(pool);
+  }
+}
 
 const deleteFacilityById = async (id) =>  {
   const pool = createConnection();
   try {
-    const sql = `DELETE FROM facilitymaster WHERE _id = ?`;
-    const params = [`${id}`];
-    const result = await executeQuery( pool, sql, params);
-    
-    if (result.affectedRows === 0) {
+    const facilityExists = await _checkFacilityExists(id);
+    if (!facilityExists) {
       return { success: false, message: 'Facility not found' };
     }
-    return { success: true, message: 'Facility deleted successfully' };
+    const sqlDelete = `DELETE FROM facilitymaster WHERE _id = ?`;
+    const paramsDelete = [`${id}`];
+    const resultDelete = await executeQuery( pool, sqlDelete, paramsDelete);
+    if (resultDelete.affectedRows === 0) {
+      return { success: false, message: 'Facility not found' };
+    }
+    return { success: true, message: 'Facility deleted successfully' };    
   } catch (error) {
     console.error('Error deleting facility!', error);
   } finally {    
@@ -73,6 +89,31 @@ const fetchFacilityCount = async () => {
     await closeConnection(pool);
   }
 }
+const updateFacilityById = async (id, userData) => {
+  const pool = createConnection();
+  try {
+    const { identifier, name, status } = userData;
+    const facilityExists = await _checkFacilityExists(id);
+    if (!facilityExists) {
+      return { success: false, message: 'Facility not found' };
+    }
+    const sql = `UPDATE facilitymaster SET identifier = ?, name = ?, status = ? WHERE _id = ?`;
+    const params = [identifier, name, status, id];
+    const result = await executeQuery( pool, sql, params);
+    if (result.affectedRows === 0) {
+      return { success: false, message: 'Facility not found' };
+    }
+    if (result.changedRows === 0) {
+      return { success: false, message: 'No changes made to the facility' };
+    }
+    return { success: true, message: 'Facility updated successfully' };
+  } catch (error) {
+    console.error('Error updating facility!', error);
+    throw new Error(error.message || 'Failed to update facility!');
+  } finally {    
+    await closeConnection(pool);
+  }
+}
 
 
-export default { fetchFacilityData, deleteFacilityById, addNewFacility, fetchRecentFacilityData, fetchFacilityCount };
+export default { fetchFacilityData, deleteFacilityById, addNewFacility, fetchRecentFacilityData, fetchFacilityCount, updateFacilityById };

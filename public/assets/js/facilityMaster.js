@@ -4,6 +4,7 @@ const appendFacility = () => {
 			"bFilter": false, 
 			"bInfo": false,
 			"autoWidth": true,
+			"order": [[4, 'desc']],
 			"language": {
 				search: ' ',
 				sLengthMenu: '_MENU_',
@@ -22,8 +23,13 @@ const appendFacility = () => {
 			"data": facility_data,
 			"columns": [
 				{ "data": "_id" },
-				{ "data": "identifier" },
-				{ "data": "name" },
+				{ "render": function ( data, type, row ){
+					return '' + row['identifier'].toUpperCase() + '';
+				}},
+				{ "render": function ( data, type, row ){
+					const fName = helperJS.textCamelCase(row['name']);
+					return '' + fName + '';
+				}},
 				{ "render": function ( data, type, row ){
 					let class_name, status_name;
 					if(row['status'] == "active") { 
@@ -45,10 +51,12 @@ const appendFacility = () => {
 					return formattedDate;
 				}},
 				{ "render": function ( data, type, row ){
-					return '<div class="dropdown table-action">' +
+					const identifier = row['identifier'].toUpperCase();
+					const fName = helperJS.textCamelCase(row['name']);
+					return '<div class="dropdown table-action text-end">' +
                            '<a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>' +
                            '<div class="dropdown-menu dropdown-menu-right">' +
-                               '<a class="dropdown-item edit-facility" href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#edit_facility" data-id="' + row['_id'] + '"><i class="ti ti-edit text-blue"></i> Edit</a>' + 
+                               '<a class="dropdown-item edit-facility" href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#edit_facility" data-id="' + row['_id'] + '" data-identifier="' + identifier + '" data-name="' + fName + '" data-status="' + row['status'] + '"><i class="ti ti-edit text-blue"></i> Edit</a>' + 
                                '<a class="dropdown-item delete-facility" href="#" data-bs-toggle="modal" data-bs-target="#delete_facility" data-id="' + row['_id'] + '"><i class="ti ti-trash text-danger"></i> Delete</a>' + 
                            '</div>' +
 					'</div>';
@@ -119,6 +127,114 @@ const deleteFacility = () => {
 		})
 	})
 }
+const editFacility = () => {
+	$('#edit_facility').on('show.bs.offcanvas', function (event) {
+		var button = $(event.relatedTarget);
+		const fId = button.data('id');
+		const fIdentifier = button.data('identifier');
+		const fName = button.data('name');
+		const fStatus = button.data('status');	
+		
+		const modal = $(this);
+		const identifier = modal.find("input[name=identifier]");
+		const name = modal.find("input[name=name]");
+		const status = modal.find("input[name=status]");
+
+		identifier.val(fIdentifier);
+		name.val(fName);
+
+		if(fStatus == 'active') {
+			status.prop('checked', true);
+		} else {
+			status.prop('checked', false);
+		}
+
+		const dltBtn = modal.find('.edit_facility');
+		dltBtn.off('click'); 
+		dltBtn.on('click', function(evnt) {
+				evnt.preventDefault()
+				const f_identifier = identifier.val().trim();
+				const f_name = name.val().trim();
+				
+				let isValid = true;
+
+				if (!isValidName(f_identifier)) {
+					if(!identifier.hasClass('is-invalid')) {
+						$("<div class='invalid-feedback'>Please enter Facility id.</div>").insertAfter(identifier);
+						identifier.addClass('is-invalid');
+						isValid = false;
+						return true
+					}
+					isValid = false;
+				}
+				if (!isValidName(f_name)) {
+					if(!name.hasClass('is-invalid')) {
+						$("<div class='invalid-feedback'>Please enter valid Facility name.</div>").insertAfter(name);
+						name.addClass('is-invalid');
+						isValid = false;
+						return true
+					}
+					isValid = false;
+				}
+
+				let f_status = (status.is(':checked')) ? 'active' : 'inactive';
+				if (isValid) {
+					let data = {
+						identifier: f_identifier,
+						name: f_name,
+						status: f_status
+					}
+					console.log(data)	
+					data = JSON.stringify(data);
+
+
+					$.ajax({
+						type: 'POST',
+						url: '/api/update-facility/' + fId,	
+						data: data,
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						success: function(response) {
+							if (response.success) {
+								var t;
+								Swal.fire({
+									title: "Facilty Edited Sussfully!",
+									html: `Facility will be reloaded in <strong>${t}</strong> milliseconds.`,
+									timer: 2e3,
+									confirmButtonClass: "btn btn-primary",
+									buttonsStyling: !1,
+									onBeforeOpen: function () {
+									Swal.showLoading(),
+										(t = setInterval(function () {
+										Swal.getContent().querySelector("strong").textContent =
+											Swal.getTimerLeft();
+										}, 100));
+									},
+									onClose: function () {
+										clearInterval(t);
+									},
+								}).then(function (t) {
+									t.dismiss === Swal.DismissReason.timer && location.reload();
+								});
+							} 
+						},
+						error: function(error) {
+							Swal.fire({
+								title: "Error",
+								text: "Error Found!",
+								icon: "error",
+								confirmButtonClass: "btn btn-primary",
+								buttonsStyling: !1,
+							});
+						}
+					});
+
+				}
+				
+			
+		})
+	})
+}
 const isValidName = (name) => {
 	if (typeof name !== 'string') {
 		return false;
@@ -153,7 +269,7 @@ const addFacility = () => {
         }
 		if (!isValidName(f_name)) {
 			if(!name.hasClass('is-invalid')) {
-				$("<div class='invalid-feedback'>Please enter Facility id.</div>").insertAfter(name);
+				$("<div class='invalid-feedback'>Please enter valid Facility name.</div>").insertAfter(name);
 				name.addClass('is-invalid');
 				isValid = false;
 				return true
@@ -221,10 +337,12 @@ const addFacility = () => {
 
 
 
+
 const facilityPage = {
 	onReady: function() {
-		deleteFacility();
 		addFacility();
+		deleteFacility();
+		editFacility();
 	},
 	onload: function() {
 		appendFacility();

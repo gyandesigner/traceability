@@ -70,15 +70,29 @@ const getUserByEmail = async (userData) => {
   const pool = createConnection();
   try {
     const { email } = userData;
-
     const checkUser = await findUserByEmail(pool, email);
     if (!checkUser) {
       throw new Error('Email Not Found!');
     }
-    return checkUser;
+    return {
+      success: true,
+      message: 'User found',
+      user: checkUser
+    };
   } catch (error) {
-    console.error('Failed to check user!', error);
-  } finally {    
+    console.error('User check error:', error);
+    if (error.message.includes('Email Not Found!')) {
+      return {
+        success: false,
+        message: error.message || 'Email Not Found!'
+      };
+    }
+    return {
+      success: false,
+      message: 'Failed to check user'
+    };
+  }
+  finally {
     await closeConnection(pool);
   }
 };

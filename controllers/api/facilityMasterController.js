@@ -60,4 +60,25 @@ const deleteFacilityById = async (req, res) => {
     }
 }
 
-export default { getAllFacility, getRecentFacility, getFacilityCount, addFacility, deleteFacilityById }
+const updateFacilityById = async (req, res) => {
+    try {      
+        const id = req.params.id;
+        if (!id) {
+            return res.status(400).json({ message: 'Facility id is required' });
+        }
+        const { identifier, name, status } = req.body;
+        if (!identifier || !name || !status || identifier === '' || name === '' || status === '') {
+            return res.status(400).json({ message: 'Important filds are required' });
+        }
+        const facilityData = { identifier, name, status };
+        const result = await facilityModel.updateFacilityById(id, facilityData);
+        res.status(200).json({ success: true, data: result });
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(500).json({ success: false, message: error || 'Internal server error' });
+    }
+}
+
+
+export default { getAllFacility, getRecentFacility, getFacilityCount, addFacility, deleteFacilityById, updateFacilityById }

@@ -43,15 +43,29 @@ $(document).ready(function(){
                 data: data,
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
-                success: function(response) {
-                    if(response.success) {
+				success: function(response) {
+					if (response.success) {
 						localStorage.setItem('accessToken', data.accessToken);
 						window.location.replace('/dashboard');
 					}
-                },
-                error: function(error) {
-					console.log(error)
-                }
+				},
+				error: function(xhr, status, error) {
+					const message = xhr.responseJSON.message;
+					Swal.fire({
+						title: "Error",
+						text: message || "An Error occured while deleting the facility!",
+						icon: "error",
+						confirmButtonClass: "btn btn-primary",
+						buttonsStyling: !1,
+					});
+
+				},
+
+				// complete: function() {
+				// 	window.location.replace('/dashboard');
+				// }
+
+                
             });
 		}
 	})

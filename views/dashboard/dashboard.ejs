@@ -69,10 +69,14 @@
                     </tr>
                   </thead>
                   <tbody>
-                  <% facility_data.forEach(function(facility) { %>
-                  <% const btnColor = (facility.status === 'active') ? 'success' : (facility.status === 'pending') ? 'secondary' : (facility.status === 'inactive') ? 'danger' : 'info' %>                    
+                  <% facility_data.forEach(function(facility, idx) { %>
+                  <% 
+                    const btnColor = (facility.status === 'active') ? 'success' : (facility.status === 'pending') ? 'secondary' : (facility.status === 'inactive') ? 'danger' : 'info';
+                    let count = idx + 1;
+
+                  %>                    
                     <tr>
-                      <td><%= facility._id %></td>
+                      <td><%= count %></td>
                       <td><%= facility.identifier %></td>
                       <td><%= facility.name %></td>
                       <td><span class="badge badge-pill badge-status bg-<%= btnColor %>"><%= facility.status %></span></td>
@@ -115,10 +119,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% supplier_data.forEach(function(supplier) { %>
-                    <% const btnColor = (supplier.status === 'active') ? 'success' : (supplier.status === 'pending') ? 'secondary' : (supplier.status === 'inactive') ? 'danger' : 'info' %>                    
+                  <% supplier_data.forEach(function(supplier, idx) { %>
+                    <% 
+                      const btnColor = (supplier.status === 'active') ? 'success' : (supplier.status === 'pending') ? 'secondary' : (supplier.status === 'inactive') ? 'danger' : 'info';
+                      let count = idx + 1;
+                    %>                    
                       <tr>
-                        <td><%= supplier.id %></td>
+                        <td><%= count %></td>
                         <td><%= supplier.name %></td>
                         <td><%= supplier.email %></td>
                         <td><%= supplier.mobile %></td>

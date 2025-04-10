@@ -11,15 +11,16 @@ const userLogin = async (req, res) => {
             return res.status(400).json({ message: 'Username and password are required' });
         }
         const userData = {email};
-        const user = await userModel.getUserByEmail(userData);
-        if (!user) {
-            return res.status(401).json({ message: 'Email not found' });
+        const checkUser = await userModel.getUserByEmail(userData);
+        if(!checkUser.success) {
+            return res.status(401).json({ message: checkUser.message });
         }
-        const passwordMatch = await bcrypt.compare(password, user.password);
+        const user = checkUser.user;
+        const passwordMatch = await bcrypt.compare(password, user.password);        
         if (!passwordMatch) {
-            throw new Error('Invalid credentials');
+            return res.status(401).json({ message: 'Password does not match' });
         }
-        const token = jwt.sign( { userId: user.id, role: user.role }, config.jwtSecret, { expiresIn: '1h' } );        
+        const token = jwt.sign( { _id: user.id, name: user.name, email: user.email }, config.jwtSecret, { expiresIn: '1h' } );        
         res.cookie('jwt', token, { httpOnly: true });
         res.json({ success: true, token });
 

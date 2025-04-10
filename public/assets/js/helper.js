@@ -16,4 +16,19 @@ const helperJS = {
 		).delay(delay).queue(function() { $(this).remove() })
 		)
 	},
+	textCamelCase: (name) => {
+		if (!name) { return ""; }
+		const parts = name.toLowerCase().split(' ');
+		const capitalizedParts = parts.map(part => {
+			if (part.length > 0) {
+			  return part.charAt(0).toUpperCase() + part.slice(1);
+			}
+			return "";
+		});
+		return capitalizedParts.join(' ');
+	},
+	ucfirst: (str) => {
+		return str.charAt(0).toUpperCase() + str.slice(1);
+	},
+
 }
