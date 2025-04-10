@@ -61,6 +61,7 @@ const deleteFacilityById = async (req, res) => {
 }
 
 const updateFacilityById = async (req, res) => {
+    console.log('updateFacilityById called');
     try {      
         const id = req.params.id;
         if (!id) {
