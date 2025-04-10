@@ -50,15 +50,14 @@ $(document).ready(function(){
 					}
 				},
 				error: function(error) {
-					console.log(error);
-					// const message = xhr.responseJSON.message;
-					// Swal.fire({
-					// 	title: "Error",
-					// 	text: message || "An Error occured while deleting the facility!",
-					// 	icon: "error",
-					// 	confirmButtonClass: "btn btn-primary",
-					// 	buttonsStyling: !1,
-					// });
+					const message = xhr.responseJSON.message;
+					Swal.fire({
+						title: "Error",
+						text: message || "An Error occured while deleting the facility!",
+						icon: "error",
+						confirmButtonClass: "btn btn-primary",
+						buttonsStyling: !1,
+					});
 
 				},
 
