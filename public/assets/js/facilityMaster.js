@@ -67,9 +67,9 @@ const appendFacility = () => {
 }
 const deleteFacilityAjax = (id) =>{
     return $.ajax({
-      url: '/api/delete-facility/' + id, // Use the correct URL
+      url: '/api/delete-facility/' + id, 
       type: 'GET',
-      dataType: 'json', // Expect JSON response
+      dataType: 'json', 
     });
 }
 const deleteFacility = () => {

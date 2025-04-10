@@ -61,8 +61,8 @@ const deleteFacilityById = async (req, res) => {
 }
 
 const updateFacilityById = async (req, res) => {
-    console.log('updateFacilityById called');
     try {      
+        console.log('updateFacilityById called');
         const id = req.params.id;
         if (!id) {
             return res.status(400).json({ message: 'Facility id is required' });

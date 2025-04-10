@@ -18,6 +18,7 @@ const _checkFacilityExists = async (id) => {
     const sql = `SELECT * FROM facilitymaster WHERE _id = ?`;
     const params = [`${id}`];
     const result = await executeQuery( pool, sql, params);
+    console.log('checkFacilityExists', result);
     return result.length > 0; 
   } catch (error) {
     console.error('Error checking facility existence!', error);
@@ -30,6 +31,7 @@ const deleteFacilityById = async (id) =>  {
   const pool = createConnection();
   try {
     const facilityExists = await _checkFacilityExists(id);
+    console.log('deleteFacilityById', id, facilityExists);
     if (!facilityExists) {
       return { success: false, message: 'Facility not found' };
     }
@@ -93,6 +95,7 @@ const updateFacilityById = async (id, userData) => {
   const pool = createConnection();
   try {
     const { identifier, name, status } = userData;
+    console.log('updateFacilityById called', id, userData);
     const facilityExists = await _checkFacilityExists(id);
     if (!facilityExists) {
       return { success: false, message: 'Facility not found' };
