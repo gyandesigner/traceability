@@ -4,7 +4,6 @@ const appendFacility = () => {
 			"bFilter": false, 
 			"bInfo": false,
 			"autoWidth": true,
-			"order": [[4, 'desc']],
 			"language": {
 				search: ' ',
 				sLengthMenu: '_MENU_',
@@ -22,7 +21,18 @@ const appendFacility = () => {
 			},	
 			"data": facility_data,
 			"columns": [
-				{ "data": "_id" },
+				{ "data": function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                } },
+				{ "render": function ( data, type, row ){
+					return 'Vivek Mehra';
+				}},				
+				{ "render": function ( data, type, row ){
+					let date = new Date(row['created_at']);
+					let options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+					let formattedDate = date.toLocaleDateString('en-US', options);
+					return formattedDate;
+				}},
 				{ "render": function ( data, type, row ){
 					return '' + row['identifier'].toUpperCase() + '';
 				}},
@@ -43,12 +53,6 @@ const appendFacility = () => {
 						status_name ="Inactive";
 					}
 					return '<span class="badge badge-pill badge-status '+class_name+'" >'+status_name+'</span>';
-				}},
-				{ "render": function ( data, type, row ){
-					let date = new Date(row['created_at']);
-					let options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-					let formattedDate = date.toLocaleDateString('en-US', options);
-					return formattedDate;
 				}},
 				{ "render": function ( data, type, row ){
 					const identifier = row['identifier'].toUpperCase();

@@ -72,7 +72,11 @@ const getUserByEmail = async (userData) => {
     const { email } = userData;
     const checkUser = await findUserByEmail(pool, email);
     if (!checkUser) {
-      throw new Error('Email Not Found!');
+      return {
+        success: false,
+        message: 'Email Not Found!',
+        user: null // Optionally include user as null for consistency
+      };
     }
     return {
       success: true,
@@ -81,15 +85,9 @@ const getUserByEmail = async (userData) => {
     };
   } catch (error) {
     console.error('User check error:', error);
-    if (error.message.includes('Email Not Found!')) {
-      return {
-        success: false,
-        message: error.message || 'Email Not Found!'
-      };
-    }
     return {
       success: false,
-      message: 'Failed to check user'
+      message: error.message || 'Failed to check user'
     };
   }
   finally {

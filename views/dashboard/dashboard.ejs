@@ -62,9 +62,9 @@
                 <table class="table">
                   <thead class="thead-light">
                     <tr>
-                      <th>Id</th>
-                      <th>Identifier</th>
-                      <th>Name</th>
+                      <th>S.No.</th>
+                      <th>Facility Id</th>
+                      <th>Facility Name</th>
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -73,11 +73,10 @@
                   <% 
                     const btnColor = (facility.status === 'active') ? 'success' : (facility.status === 'pending') ? 'secondary' : (facility.status === 'inactive') ? 'danger' : 'info';
                     let count = idx + 1;
-
                   %>                    
                     <tr>
                       <td><%= count %></td>
-                      <td><%= facility.identifier %></td>
+                      <td><%= facility.identifier.toUpperCase() %></td>
                       <td><%= facility.name %></td>
                       <td><span class="badge badge-pill badge-status bg-<%= btnColor %>"><%= facility.status %></span></td>
                     </tr>
@@ -110,12 +109,12 @@
               <table class="table">
                 <thead class="thead-light">
                   <tr>
-                    <th>Id</th>
+                    <th>S.No.</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Mobile</th>
                     <th>Agent</th>
-                    <th>Facility</th>
+                    <th>Facility Id</th>
                   </tr>
                 </thead>
                 <tbody>
