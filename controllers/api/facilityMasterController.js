@@ -42,6 +42,7 @@ const addFacility = async (req, res) => {
         if (!id || !name || !status || id === '' || name === '' || status === '') {
             return res.status(400).json({ message: 'Important filds are required' });
         }
+        console.log(req.user)
         if (!req.user._id || !req.user.name || !req.user.email) {
             console.log('User data not found in request');
             return res.status(401).json({ message: 'User data not found in request' });
