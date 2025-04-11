@@ -11,6 +11,7 @@ const authenticateToken = (req, res, next) => {
         if (err) {
             return res.clearCookie('jwt').redirect('/');
         }
+        console.log("User authenticated:", user);
         req.user = user;
         next();
     });
