@@ -34,11 +34,22 @@ const getFacilityCount = async (req, res) => {
 const addFacility = async (req, res) => {
     try {      
         const { id, name, status } = req.body;
+
+        if(!req.user) {
+            console.log('User not authenticated');
+            return res.status(401).json({ message: 'User not authenticated' });
+        }
         if (!id || !name || !status || id === '' || name === '' || status === '') {
             return res.status(400).json({ message: 'Important filds are required' });
         }
-        let identifier = id;
-        const facilityData = { identifier, name, status };
+        if (!req.user._id || !req.user.name || !req.user.email) {
+            console.log('User data not found in request');
+            return res.status(401).json({ message: 'User data not found in request' });
+        }        
+        let userId = req.user._id;
+        let userName = req.user.name;
+        let userEmail = req.user.email;
+        const facilityData = { id, name, status, userId, userName, userEmail };
         const result = await facilityModel.addNewFacility(facilityData);  
         res.status(201).json({ success: true, data: result });
     } catch (error) {
@@ -61,18 +72,17 @@ const deleteFacilityById = async (req, res) => {
 }
 
 const updateFacilityById = async (req, res) => {
-    try {      
-        console.log('updateFacilityById called');
-        const id = req.params.id;
-        if (!id) {
+    try {
+        const _id = req.params.id;
+        if (!_id) {
             return res.status(400).json({ message: 'Facility id is required' });
         }
-        const { identifier, name, status } = req.body;
-        if (!identifier || !name || !status || identifier === '' || name === '' || status === '') {
+        const { id, name, status } = req.body;
+        if (!id || !name || !status || id === '' || name === '' || status === '') {
             return res.status(400).json({ message: 'Important filds are required' });
         }
-        const facilityData = { identifier, name, status };
-        const result = await facilityModel.updateFacilityById(id, facilityData);
+        const facilityData = { id, name, status };
+        const result = await facilityModel.updateFacilityById(_id, facilityData);
         res.status(200).json({ success: true, data: result });
     }
     catch (error) {

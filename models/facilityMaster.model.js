@@ -3,7 +3,7 @@ import { createConnection, executeQuery, closeConnection } from '../config/datab
 const fetchFacilityData = async () => {
   const pool = createConnection();
   try {
-    const sql = `SELECT * FROM facilitymaster`;  
+    const sql = `SELECT * FROM facility_data`;  
     const result = await executeQuery( pool, sql);
     return result;
   } catch (error) {
@@ -15,7 +15,7 @@ const fetchFacilityData = async () => {
 const _checkFacilityExists = async (id) => {
   const pool = createConnection();
   try {
-    const sql = `SELECT * FROM facilitymaster WHERE _id = ?`;
+    const sql = `SELECT * FROM facility_data WHERE _id = ?`;
     const params = [`${id}`];
     const result = await executeQuery( pool, sql, params);
     console.log('checkFacilityExists', result);
@@ -31,11 +31,10 @@ const deleteFacilityById = async (id) =>  {
   const pool = createConnection();
   try {
     const facilityExists = await _checkFacilityExists(id);
-    console.log('deleteFacilityById', id, facilityExists);
     if (!facilityExists) {
       return { success: false, message: 'Facility not found' };
     }
-    const sqlDelete = `DELETE FROM facilitymaster WHERE _id = ?`;
+    const sqlDelete = `DELETE FROM facility_data WHERE _id = ?`;
     const paramsDelete = [`${id}`];
     const resultDelete = await executeQuery( pool, sqlDelete, paramsDelete);
     if (resultDelete.affectedRows === 0) {
@@ -53,12 +52,16 @@ const deleteFacilityById = async (id) =>  {
 const addNewFacility = async (userData)  => {
   const pool = createConnection();
   try {
-    const { identifier, name, status } = userData;
-    const sql = `INSERT INTO facilitymaster (identifier, name, status) VALUES (?, ?, ?)`;
-    const params = [identifier, name, status];
+    const { id, name, status, userId, userName, userEmail } = userData;
+    if (!id || !name || !status || id === '' || name === '' || status === '') {
+      return { success: false, message: 'Important fields are required' };
+    }
+    const sql = `INSERT INTO facility_data (id, name, status, creater_id, creater_name, creater_email) VALUES (?, ?, ?, ?, ?, ?)`;
+    const params = [id, name, status, userId, userName, userEmail];
     const result = await executeQuery( pool, sql, params);
     return { success: true, message: 'Facility added successfully', insertId: result.insertId };
   } catch (error) {
+    console.error('Error adding facility!', error);
     throw new Error(error.message || 'Failed to add facility!');
   } finally {    
     await closeConnection(pool);
@@ -68,7 +71,7 @@ const addNewFacility = async (userData)  => {
 const fetchRecentFacilityData = async (length) => {
   const pool = createConnection();
   try {
-    const sql = `SELECT * FROM facilitymaster ORDER BY _id DESC LIMIT ?`;
+    const sql = `SELECT * FROM facility_data ORDER BY _id DESC LIMIT ?`;
     const params = [`${length}`];
     const result = await executeQuery( pool, sql, params);
     return result;
@@ -82,7 +85,7 @@ const fetchRecentFacilityData = async (length) => {
 const fetchFacilityCount = async () => {
   const pool = createConnection();
   try {
-    const sql = `SELECT COUNT(*) AS count FROM facilitymaster`;
+    const sql = `SELECT COUNT(*) AS count FROM facility_data`;
     const result = await executeQuery( pool, sql);
     return result[0].count;
   } catch (error) {
@@ -91,17 +94,17 @@ const fetchFacilityCount = async () => {
     await closeConnection(pool);
   }
 }
-const updateFacilityById = async (id, userData) => {
+const updateFacilityById = async (_id, userData) => {
   const pool = createConnection();
   try {
-    const { identifier, name, status } = userData;
-    console.log('updateFacilityById called', id, userData);
-    const facilityExists = await _checkFacilityExists(id);
+    const { id, name, status } = userData;
+    const facilityExists = await _checkFacilityExists(_id);
     if (!facilityExists) {
       return { success: false, message: 'Facility not found' };
     }
-    const sql = `UPDATE facilitymaster SET identifier = ?, name = ?, status = ? WHERE _id = ?`;
-    const params = [identifier, name, status, id];
+    const sql = `UPDATE facility_data SET id = ?, name = ?, status = ? WHERE _id = ?`;
+    const rowId = `${_id}`;
+    const params = [id, name, status, rowId];
     const result = await executeQuery( pool, sql, params);
     if (result.affectedRows === 0) {
       return { success: false, message: 'Facility not found' };

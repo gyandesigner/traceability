@@ -1,62 +1,60 @@
+import facilityServices from '../../services/facilityServices.js';
+import supplierServices from '../../services/supplierServices.js';
+
+
 const getSupplierListPage = async (req,res) => {
     console.log("--------------Supplier List Page--------------");
-    
-    const model = {
-        title: '',
-        layout: 'layouts/layout',
-        supplier_data: []
-    }
-    model.title = 'Supplier List | Tracibility';
 
-    try { 
-
-        const response = await fetch('http://localhost:5500/api/get-all-supplier', { method: 'POST' }); 
-
-        if (!response.ok) {
-            model.supplier_data = [];
+    console.log("-------------- Add Supplier Page--------------");
+    try{
+        console.time('addFacility === > ');
+        const model = {
+            title: '',
+            layout: 'layouts/layout',
+            supplier_data: []
         }
-        const responseData = await response.json();
-
-        model.supplier_data = responseData.data;
+        const supplierRes = await supplierServices.getAllSupplier();
+        console.log("supplierRes === > ", supplierRes);
+        if(supplierRes && supplierRes.data) {
+            model.supplier_data = supplierRes.data;
+        } 
         
-    } catch (error) {
-        model.supplier_data = [];
+        model.title = 'Supplier List | Tracibility';
+        model.layout = 'layouts/dashboard-layout';
+        
+        console.timeEnd('addFacility === > ');
+    res.render('supplier/supplierList', model);
+
+    } catch(error) {
+        console.log(error);
     }
 
-    model.layout = 'layouts/dashboard-layout';
-    res.render('supplier/supplierList', model);
+
+    
 }
 
 const getAddSupplierListPage = async (req,res) => {
     console.log("-------------- Add Supplier Page--------------");
-    
-    const model = {
-        title: '',
-        layout: 'layouts/layout',
-        facility_master: []
-    }
-    model.title = 'Add Supplier | Tracibility';
-    
-
-    try { 
-
-        const facilityRes = await fetch('http://localhost:5500/api/get-all-facility', { method: 'POST' }); 
-
-        if (!facilityRes.ok) {
-            model.facility_master = [];
+    try{
+        console.time('addFacility === > ');
+        const model = {
+            title: '',
+            layout: 'layouts/layout',
+            facility_master: []
         }
-        const facilityData = await facilityRes.json();
-
-        model.facility_master = facilityData.data;
+        const facilityRes = await facilityServices.getAllFacility();
+        if(facilityRes && facilityRes.data) {
+            model.facility_master = facilityRes.data;
+        }
         
-    } catch (error) {
-        model.facility_master = [];
+        model.title = 'Add Supplier | Tracibility';
+        model.layout = 'layouts/dashboard-layout';
+        
+        console.timeEnd('addFacility === > ');
+        res.render('supplier/addSupplier', model);
+    } catch(error) {
+        console.log(error);
     }
-
-
-
-    model.layout = 'layouts/dashboard-layout';
-    res.render('supplier/addSupplier', model);
 }
 
 export default { getSupplierListPage, getAddSupplierListPage };

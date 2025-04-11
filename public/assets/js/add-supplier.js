@@ -1,29 +1,75 @@
-const isValidName = (name) => {
-	
-	if (typeof name !== 'string') {
-		return false;
-	}
-	const trimmedName = name.trim();
-	if (trimmedName === '') {
-		return false;
-	}
-	const nameRegex = /^[a-zA-Z\s'-]+$/;
-	return nameRegex.test(trimmedName);
-	
-}
-const isValidEmail = (email)  => {
-	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-	return emailRegex.test(email);
-}
-const isValidNumber = (number)  => {
-	const mobRegex = /^\+?(?:[0-9] ?){6,14}[0-9]$/;
-	return mobRegex.test(number);
-}
+const addSupplierFormData = async (data) => {
+	try {
+		const bodyData = JSON.stringify(data);
+		const response = await fetch('/api/add-supplier', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8',
+			},
+			body: bodyData 
+		});
 
-const addSupplierForm = () => {
+		if (!response.ok) {
+			const error = await response.json();
+			throw error; 
+		}
+
+		const responseData = await response.json();
+		if (responseData.success) {
+			
+			var t;
+			Swal.fire({
+				title: "Supplier Added Sussfully!",
+				html: `Page will be reloaded in <strong>${t}</strong> milliseconds.`,
+				timer: 2e3,
+				confirmButtonClass: "btn btn-primary",
+				buttonsStyling: !1,
+				onBeforeOpen: function () {
+				Swal.showLoading(),
+					(t = setInterval(function () {
+					Swal.getContent().querySelector("strong").textContent =
+						Swal.getTimerLeft();
+					}, 100));
+				},
+				onClose: function () {
+					clearInterval(t);
+				},
+			}).then(function (t) {
+				t.dismiss === Swal.DismissReason.timer && location.reload();
+			});
+				
+			
+		}
+	} catch (error) {		
+		console.log(error)
+		if (error && error.message) {
+			console.log(error.message)
+			Swal.fire({
+				title: "Error",
+				text: error.message || "Some error found, Please try again later",
+				icon: "error",
+				confirmButtonClass: "btn btn-primary",
+				buttonsStyling: !1,
+			}).then(function (t) {
+				location.reload();
+			});
+		} else {
+			console.log(error)
+			Swal.fire({
+				title: "Error",
+				text: "Login Failed: An unexpected error occurred.",
+				icon: "error",
+				confirmButtonClass: "btn btn-primary",
+				buttonsStyling: !1,
+			}).then(function (t) {
+				location.reload();
+			})
+		}
+	}
 	
-	$('#add-supplier').submit(function(e) {     
-		
+}
+const addSupplierForm = () => {	
+	$('#add-supplier').submit(function(e) {     		
 		e.preventDefault(); 
 		const name = $(this).find("input[name=name]");
 		const email = $(this).find("input[name=email]");
@@ -50,19 +96,25 @@ const addSupplierForm = () => {
 		$('.invalid-feedback').hide();
 		$('.is-invalid').removeClass('is-invalid');
 
-		if (!isValidName(nameVal)) {
-			$("<div class='invalid-feedback'>Please enter you name.</div>").insertAfter(name);
-			name.addClass('is-invalid');
+		if (!helperJS.isValidString(nameVal) || nameVal.length === 0) {
+			if(!name.hasClass('is-invalid')) {
+				$(`<div class='invalid-feedback'>Facility name contains special characters or numbers.</div>`).insertAfter(name);
+				name.addClass('is-invalid');
+				return true;
+			}
+			name.focus()
 			isValid = false;
+			return true
 		}
+		name.removeClass('is-invalid')
 
-		if (!isValidEmail(emailVal)) {
+		if (!helperJS.isValidEmail(emailVal)) {
 			$("<div class='invalid-feedback'>Please enter correct email.</div>").insertAfter(email);
             email.addClass('is-invalid');
             isValid = false;
         }
 
-		if (!isValidNumber(mobileVal)) {
+		if (!helperJS.isValidNumber(mobileVal)) {
 			$("<div class='invalid-feedback'>Please enter valid number.</div>").insertAfter(mobile);
 			mobile.addClass('is-invalid');
 			isValid = false;
@@ -103,7 +155,7 @@ const addSupplierForm = () => {
 		const selFacility = facilityVal.map(checkbox => checkbox.value).toString();
 			
 		if (isValid) {
-			let data = {
+			const data = {
 				name: nameVal,
 				email: emailVal,
 				mobile: mobileVal,
@@ -114,28 +166,8 @@ const addSupplierForm = () => {
 				agent: agentVal,
 				facility: selFacility,
 			}
-
-			data = JSON.stringify(data)
-
-			$.ajax({
-                type: 'POST',
-                url: '/api/add-supplier',
-                data: data,
-				contentType: "application/json; charset=utf-8",
-				dataType: "json",
-                success: function(response) {
-					if (response.success) {
-						alert('Facility added successfully!');
-						
-					} else {
-						alert('Error: ' + data.message);
-					}
-                },
-                error: function(error) {
-					console.log(error)
-                }
-            });
-		}
+			addSupplierFormData(data)						
+		}	
 	})
 
 }

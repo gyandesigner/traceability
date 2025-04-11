@@ -20,22 +20,22 @@
               <div class="row">
                 <div class="col-md-4 mb-3">
                   <label class="form-label">Supplier Name<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="name">
+                  <input type="text" class="form-control" name="name" required>
                 </div>
                 <div class="col-md-4 mb-3">
                   <label class="form-label">Email<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="email">
+                  <input type="text" class="form-control" name="email" required>
                 </div>
                 <div class="col-md-4 mb-3">
                   <label class="form-label">Telephone/Mobile<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="mobile">
+                  <input type="text" class="form-control" name="mobile" required>
                 </div>
               </div>
               <h5 class="card-title">Postal Address</h5>
               <div class="row">
                 <div class="col-md-12 mb-3">
                   <label class="form-label">Address<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="address">
+                  <input type="text" class="form-control" name="address" required>
                 </div>
                 <div class="col-md-4 mb-3">
                   <label class="form-label">Country<span class="text-danger">*</span></label>
@@ -49,17 +49,17 @@
                 </div>
                 <div class="col-md-4 mb-3">
                   <label class="form-label">City<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="city">
+                  <input type="text" class="form-control" name="city" required>
                 </div>
                 <div class="col-md-4 mb-3">
                   <label class="form-label">Province/State<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="state">
+                  <input type="text" class="form-control" name="state" required>
                 </div>
               </div>
               
               <div class="col-md-4 mb-3">
                 <label class="form-label">Agent<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="agent">
+                <input type="text" class="form-control" name="agent" required>
               </div>
               <h5 class="card-title">Facility Master</h5>
               <div class="row">
@@ -67,7 +67,7 @@
                   <% if(facility_master && facility_master.length > 0) { %>
                     <% facility_master.forEach((facility, idx) => { %>
                       <div class="form-check form-check-md d-flex align-items-center">
-                        <input class="form-check-input" type="checkbox" name="facility" value="<%= facility.identifier %>" id="<%= facility.id %>">
+                        <input class="form-check-input" type="checkbox" name="facility" value="<%= facility.id %>" id="<%= facility.id %>">
                         <label class="form-check-label" for="<%= facility.id %>"><%= facility.name %></label>
                       </div>
                     <% }) %>
@@ -118,6 +118,9 @@
 <script type="text/javascript" src="/assets/plugins/apexchart/chart-data.js"></script> 
 <script type="text/javascript" src="/assets/js/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="/assets/js/dataTables.bootstrap5.min.js"></script> 
-<script type="text/javascript" src="/assets/js/jsonscript.js"></script> 
+<script type="text/javascript" src="/assets/js/jsonscript.js"></script>
+<script type="text/javascript" src="/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="/assets/plugins/sweetalert/sweetalerts.min.js"></script> 
 <script type="text/javascript" src="/assets/js/script.js"></script>
+<script type="text/javascript" src="/assets/js/helper.js"></script>
 <script type="text/javascript" src="/assets/js/add-supplier.js"></script>

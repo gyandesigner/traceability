@@ -17,9 +17,9 @@ const fetchSupplierData = async () => {
 const addSupplier = async (supplier) => {
   const pool = createConnection();
   try {
-    const { name, address, country, state, city, mobile, email, agent, facility } = supplier;
-    const sql = `INSERT INTO supplier_data (name, address, country, state, city, mobile, email, agent, facility) VALUES (?, ?, ?,?, ?, ?,?, ?, ?)`;
-    const params = [name, address, country, state, city, mobile, email, agent, facility];
+    const { name, address, country, state, city, mobile, email, agent, facility, userId, userName, userEmail } = supplier;
+    const sql = `INSERT INTO supplier_data (name, address, country, state, city, mobile, email, agent_name, facility, creator_id, creator_name, creator_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const params = [name, address, country, state, city, mobile, email, agent, facility, userId, userName, userEmail];
     const result = await executeQuery( pool, sql, params);
 
     return { success: true, message: 'Suplier added successfully', insertId: result.insertId };
@@ -33,7 +33,7 @@ const addSupplier = async (supplier) => {
 const fetchRecentSupplierData = async (length) => {
   const pool = createConnection();
   try {
-    const sql = `SELECT * FROM supplier_data ORDER BY id DESC LIMIT ?`;
+    const sql = `SELECT * FROM supplier_data ORDER BY _id DESC LIMIT ?`;
     const params = [`${length}`];
     const result = await executeQuery( pool, sql, params);
     return result;

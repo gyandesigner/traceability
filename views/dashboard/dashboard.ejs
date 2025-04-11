@@ -76,7 +76,7 @@
                   %>                    
                     <tr>
                       <td><%= count %></td>
-                      <td><%= facility.identifier.toUpperCase() %></td>
+                      <td><%= facility.id %></td>
                       <td><%= facility.name %></td>
                       <td><span class="badge badge-pill badge-status bg-<%= btnColor %>"><%= facility.status %></span></td>
                     </tr>
@@ -87,7 +87,9 @@
               <% } else { %>
                 <div class="noDataFound d-flex align-items-center justify-content-center flex-column" style="height:100%;">
                   <strong>No Data Found </strong>
-                  <div class="mb-3 mt-4"><button type="submit" class="btn btn-primary w-100">Add Facility Master</button></div>
+                  <div class="mb-3 mt-4">
+                    <a href="/facility" class="btn btn-primary w-100">View All</a>
+                  </div>
                 </div>
               <% } %>
             </div>
@@ -99,7 +101,7 @@
             <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3">
               <h4><i class="ti ti-grip-vertical me-1"></i>Recently Created Supplier</h4>
               <% if(supplier_data && supplier_data.length > 0) { %>
-                <a href="/supplier" class="btn btn-light">View All</a>
+                <a href="/supplier" class="btn btn-light">Add Facility</a>
               <% } %>
             </div>
           </div>
@@ -128,7 +130,7 @@
                         <td><%= supplier.name %></td>
                         <td><%= supplier.email %></td>
                         <td><%= supplier.mobile %></td>
-                        <td><%= supplier.Agent %></td>
+                        <td><%= supplier.agent_name %></td>
                         <td><%= supplier.facility %></td>
                       </tr>
                     <% }) %>
@@ -138,7 +140,9 @@
             <% } else { %>    
               <div class="noDataFound d-flex align-items-center justify-content-center flex-column" style="height:100%;">
                 <strong>No Data Found </strong>
-                <div class="mb-3 mt-4"><button type="submit" class="btn btn-primary w-100">Add Facility Master</button></div>
+                <div class="mb-3 mt-4">
+                  <a href="/supplier/add" class="btn btn-primary w-100">Add Supplier</a>
+                </div>
               </div>
             <% } %>
           </div>
@@ -156,12 +160,6 @@
 <link rel="stylesheet" href="/assets/plugins/tabler-icons/tabler-icons.css">
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/css/style.css">
-
-<!--<link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css">
-<link rel="stylesheet" href="/assets/plugins/flatpickr/flatpickr.min.css">
-<link rel="stylesheet" href="/assets/plugins/%40simonwep/pickr/themes/nano.min.css">
-<link rel="stylesheet" href="/assets/plugins/daterangepicker/daterangepicker.css">
-<link rel="stylesheet" href="/assets/css/dataTables.bootstrap5.min.css">-->
 
 <%- contentFor('bottomScript') %>
 <script>console.log("vivek")</script>

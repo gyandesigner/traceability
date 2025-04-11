@@ -17,32 +17,24 @@ const getDashboardPage = async (req,res) => {
         }
         const facilityRes = await facilityService.getLatestFacility(5);
         if(facilityRes && facilityRes.data) {
-            const updatedFacilitysData = facilityRes.data.map((facility) => {
-                let identifier = facility.identifier.toUpperCase();
-                let camelName = commonHelper.camelCaseName(facility.name);
-                return {
-                    ...facility,
-                    identifier: identifier,
-                    name: camelName
-                }
-
-            })
-            model.facility_data = updatedFacilitysData;
+            model.facility_data = facilityRes.data;
         }
         const facilityCountRes = await facilityService.getFacilityCount();
         if(facilityCountRes && facilityCountRes.data) {
             model.facility_count = facilityCountRes.data;
         }
         const supplierRes = await supplierServices.getLatestSupplier(5);
+        console.log("supplierRes === > ", supplierRes);
         if(supplierRes && supplierRes.data) {
             console.log(supplierRes.data)
             const updatedSupplierData = supplierRes.data.map((supplier) => {
+                console.log(supplier)
                 let camelName = commonHelper.camelCaseName(supplier.name);
-                let camelAgent = commonHelper.camelCaseName(supplier.Agent);
+                let camelAgent = commonHelper.camelCaseName(supplier.agent_name);
                 return {
                     ...supplier,
                     name: camelName,
-                    Agent: camelAgent
+                    agent_name: camelAgent
                 }
 
             })
