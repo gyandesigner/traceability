@@ -12,6 +12,7 @@ router.get('/supplier', supplier.getSupplierListPage);
 router.get('/supplier/add', supplier.getAddSupplierListPage);
 router.get('/supplier', supplier.getSupplierListPage);
 router.get('/supplier/add', supplier.getAddSupplierListPage);
+router.get('/supplier/edit/:supplierId', supplier.updateSupplierPage);
 
 
 export default router;

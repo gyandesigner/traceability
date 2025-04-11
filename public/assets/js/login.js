@@ -7,6 +7,46 @@ function isValidPassword(password) {
 	const passwordRegex = /^.{9,}$/;
 	return passwordRegex.test(password);
 }
+const loginUserCheck = async (data) => {
+	try {
+        const response = await fetch('/api/user-login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: data // Ensure 'data' is a JSON string
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw error; // Throw the parsed JSON error
+        }
+
+        const responseData = await response.json();
+        if (responseData.success) {
+            localStorage.setItem('accessToken', data.accessToken); // Adjust as needed based on server response
+            window.location.replace('/dashboard');
+        }
+    } catch (error) {		
+        if (error && error.message) {
+			Swal.fire({
+				title: "Error",
+				text: error.message || "Some error found, Please try again later",
+				icon: "error",
+				confirmButtonClass: "btn btn-primary",
+				buttonsStyling: !1,
+			})
+        } else {
+			Swal.fire({
+				title: "Error",
+				text: "Login Failed: An unexpected error occurred.",
+				icon: "error",
+				confirmButtonClass: "btn btn-primary",
+				buttonsStyling: !1,
+			})
+        }
+    }
+}
 $(document).ready(function(){
 	$('#loginForm').submit(function(e) {
         e.preventDefault(); 
@@ -35,38 +75,7 @@ $(document).ready(function(){
 				password: passwordVal
 			}
 			data = JSON.stringify(data)
-
-
-			$.ajax({
-                type: 'POST',
-                url: '/api/user-login',
-                data: data,
-				contentType: "application/json; charset=utf-8",
-				dataType: "json",
-				success: function(response) {
-					if (response.success) {
-						localStorage.setItem('accessToken', data.accessToken);
-						window.location.replace('/dashboard');
-					}
-				},
-				error: function(xhr, status, error) {
-					const message = xhr.responseJSON.message;
-					Swal.fire({
-						title: "Error",
-						text: message || "An Error occured while deleting the facility!",
-						icon: "error",
-						confirmButtonClass: "btn btn-primary",
-						buttonsStyling: !1,
-					});
-
-				},
-
-				// complete: function() {
-				// 	window.location.replace('/dashboard');
-				// }
-
-                
-            });
+			loginUserCheck(data)
 		}
 	})
 });

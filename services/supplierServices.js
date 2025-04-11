@@ -18,8 +18,27 @@ const getSupplierCount = async () => {
         return 0;
     }
 }
-
+const getAllSupplier = async () => {
+    try {
+        const apiUrl = `/get-all-supplier`;
+        return await apiHelper.get(apiUrl);
+    } catch (error) {
+        console.error('Error fetching all suppliers:', error);
+        return [];
+    }
+}
+const getSupplierById = async (id) => {
+    try {
+        const apiUrl = `/get-supplier/${id}`;
+        return await apiHelper.get(apiUrl);
+    } catch (error) {
+        console.error('Error fetching supplier by id:', error);
+        return null;
+    }
+}
 export default {
     getLatestSupplier,
     getSupplierCount,
+    getAllSupplier,
+    getSupplierById,
 };
