@@ -20,13 +20,13 @@ const addSupplier = async (req, res) => {
             console.log('User not authenticated');
             return res.status(401).json({ message: 'User not authenticated' });
         }
-        if (!req.user._id || !req.user.name || !req.user.email) {
+        if (!req.user.u_id || !req.user.u_name || !req.user.u_email) {
             console.log('User data not found in request');
             return res.status(401).json({ message: 'User data not found in request' });
         }        
-        let userId = req.user._id;
-        let userName = req.user.name;
-        let userEmail = req.user.email;
+        let userId = req.user.u_id;
+        let userName = req.user.u_name;
+        let userEmail = req.user.u_email;
         const supplierData = { name, address, country, state, city, mobile, email, agent, registrationId, facility, userId, userName, userEmail };
         const result = await supplierModel.addSupplier(supplierData);       
         res.json({ success: true, data: result });
