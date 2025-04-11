@@ -21,7 +21,7 @@ const userLogin = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' }); // More generic message
         }
         console.log("User authenticated:", user);
-        const token = jwt.sign( { _id: user.id, name: user.name, email: user.email }, config.jwtSecret, { expiresIn: '1h' } );
+        const token = jwt.sign( { _id: user._id, name: user.name, email: user.email }, config.jwtSecret, { expiresIn: '1h' } );
         res.cookie('jwt', token, { httpOnly: true });
         res.json({ success: true, token });
     
