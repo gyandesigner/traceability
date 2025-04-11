@@ -27,6 +27,7 @@
                     <th>Agent</th>
                     <th>Address</th>
                     <th>Country</th>
+                    <th>Registration Id</th>
                     <th>City</th>
                     <th>State</th>
                     <th>Facility Master</th>
@@ -51,6 +52,25 @@
     </div>
   </div>
 </div>
+
+  <!-- Delete Supplier -->
+  <div class="modal fade" id="delete_supplier" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="text-center">
+            <div class="avatar avatar-xl bg-danger-light rounded-circle mb-3"> <i class="ti ti-trash-x fs-36 text-danger"></i> </div>
+            <h4 class="mb-2">Remove Supplier?</h4>
+            <p class="mb-0">Are you sure you want to remove supplier you selected.</p>
+            <div class="d-flex align-items-center justify-content-center mt-4">
+              <a href="javascript:void(0)" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+              <a href="javascript:void(0)" class="btn btn-danger delete-confirm">Yes, Delete it</a> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Delete Supplier --> 
 
 
 
@@ -86,6 +106,8 @@
 <script type="text/javascript" src="/assets/js/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="/assets/js/dataTables.bootstrap5.min.js"></script> 
 <script type="text/javascript" src="/assets/js/jsonscript.js"></script> 
+<script type="text/javascript" src="/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="/assets/plugins/sweetalert/sweetalerts.min.js"></script> 
 <script type="text/javascript" src="/assets/js/script.js"></script>
 <script type="text/javascript" src="/assets/js/helper.js"></script>
 <script type="text/javascript" src="/assets/js/supplier-list.js"></script>

@@ -57,4 +57,36 @@ const getAddSupplierListPage = async (req,res) => {
     }
 }
 
-export default { getSupplierListPage, getAddSupplierListPage };
+const updateSupplierPage = async (req,res) => {
+    console.log("-------------- Add Supplier Page--------------");
+    try{
+        console.time('updateSupplier === > ');
+        const model = {
+            title: '',
+            layout: 'layouts/layout',
+            supplier: [],
+            facility_master: []
+        }
+        const supplierId = req.params.supplierId;
+        console.log("supplierId === > ", supplierId);
+        const supplierRes = await supplierServices.getSupplierById(supplierId);
+        console.log(supplierRes, "supplierRes === > ");
+        if(supplierRes && supplierRes.data) {
+            model.supplier = supplierRes.data;
+        }
+        const facilityRes = await facilityServices.getAllFacility();
+        if(facilityRes && facilityRes.data) {
+            model.facility_master = facilityRes.data;
+        }
+        
+        model.title = 'Edit Supplier | Tracibility';
+        model.layout = 'layouts/dashboard-layout';
+        
+        console.timeEnd('updateSupplier === > ');
+        res.render('supplier/updateSupplier', model);
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+export default { getSupplierListPage, getAddSupplierListPage, updateSupplierPage };

@@ -49,6 +49,10 @@ const appendSupplier = () => {
 					return '' + row['country'] + '';
 				}},	
 				{ "render": function ( data, type, row ){
+					const registrationId = row['registration_id'] || 'NA';
+					return '' + registrationId + '';
+				}},	
+				{ "render": function ( data, type, row ){
 					return '' + row['city'] + '';
 				}},	
 				{ "render": function ( data, type, row ){
@@ -76,8 +80,8 @@ const appendSupplier = () => {
 					return '<div class="dropdown table-action text-end">' +
                            '<a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>' +
                            '<div class="dropdown-menu dropdown-menu-right">' +
-                               '<a class="dropdown-item edit-facility" href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#edit_facility" data-id="' + row['_id'] + '" data-fid="' + row['id'] + '" data-name="' + fName + '" data-status="' + row['status'] + '"><i class="ti ti-edit text-blue"></i> Edit</a>' + 
-                               '<a class="dropdown-item delete-facility" href="#" data-bs-toggle="modal" data-bs-target="#delete_facility" data-id="' + row['_id'] + '"><i class="ti ti-trash text-danger"></i> Delete</a>' + 
+                               '<a class="dropdown-item edit-supplier" href="/supplier/edit/' + row['_id'] + '"><i class="ti ti-edit text-blue"></i> Edit</a>' + 
+                               '<a class="dropdown-item delete-supplier" href="#" data-bs-toggle="modal" data-bs-target="#delete_supplier" data-id="' + row['_id'] + '"><i class="ti ti-trash text-danger"></i> Delete</a>' + 
                            '</div>' +
 					'</div>';
 				}}
@@ -86,12 +90,94 @@ const appendSupplier = () => {
 		});
 	}
 }
+const deleteSupplierRow = async (id) => {
+	try {
+		if (!id) {
+			throw new Error('Invalid supplier ID');
+		}
+        const response = await fetch(`/api/delete-supplier/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            throw error; 
+        }
+        const responseData = await response.json();
+        if (responseData.success) {			
+				var t;
+				Swal.fire({
+					title: "Facilty Delete Sussfully!",
+					html: `Page will be reloaded in <strong>${t}</strong> milliseconds.`,
+					timer: 2e3,
+					confirmButtonClass: "btn btn-primary",
+					buttonsStyling: !1,
+					onBeforeOpen: function () {
+					Swal.showLoading(),
+						(t = setInterval(function () {
+						Swal.getContent().querySelector("strong").textContent =
+							Swal.getTimerLeft();
+						}, 100));
+					},
+					onClose: function () {
+						clearInterval(t);
+					},
+				}).then(function (t) {
+					t.dismiss === Swal.DismissReason.timer && location.reload();
+				});
+				
+			
+        }
+    } catch (error) {		
+        if (error && error.message) {
+			console.log(error.message)
+			Swal.fire({
+				title: "Error",
+				text: error.message || "Some error found, Please try again later",
+				icon: "error",
+				confirmButtonClass: "btn btn-primary",
+				buttonsStyling: !1,
+			})
+        } else {
+			console.log(error)
+			Swal.fire({
+				title: "Error",
+				text: "Login Failed: An unexpected error occurred.",
+				icon: "error",
+				confirmButtonClass: "btn btn-primary",
+				buttonsStyling: !1,
+			})
+        }
+    }
+}
+const deleteSupplier = () => {
+	$('#delete_supplier').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget);
+		let facilityId = button.data('id');		
+		const modal = $(this)
+		const dltBtn = modal.find('.delete-confirm');
+		dltBtn.off('click');
+		dltBtn.on('click', function(evnt) {
+			evnt.preventDefault()
+			$('#delete_supplier').modal('hide');
+			deleteSupplierRow(facilityId);	
+		})
+	})
+}
+
+
+
+
+
 const supplierList = {
 	onReady: function() {
 		console.log("DOM is Ready!")
 	},
 	onload: function() {
 		appendSupplier();
+		deleteSupplier();
 	}
 }
 
