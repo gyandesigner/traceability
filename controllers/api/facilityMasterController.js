@@ -35,6 +35,7 @@ const addFacility = async (req, res) => {
     try {      
         const { id, name, status } = req.body;
 
+        console.log('User data from request from facility controller:');
         console.log(req.user)
         if(!req.user) {
             console.log('User not authenticated');
