@@ -1,0 +1,177 @@
+<div class="page-wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-header">
+          <div class="row align-items-center ">
+            <div class="col-12">
+              <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+                <h3 class="page-title">Facility Master</h3>
+                <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_facility"><i class="ti ti-square-rounded-plus me-2"></i>Add New Facility</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card ">          
+          <div class="card-body">
+            <div class="table-responsive custom-table">
+              <table class="table" id="facility-table">
+                <thead class="thead-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Identifier</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="datatable-length"></div>
+              </div>
+              <div class="col-md-6">
+                <div class="datatable-paginate"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Add Facility Master Popup -->
+  <div class="modal custom-modal fade" id="add_facility" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Facility Master</h5>
+          <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"> <i class="ti ti-x"></i> </button>
+        </div>
+        <div class="modal-body">
+          <form id="addFacilityForm">
+			      <div class="mb-3">
+              <label class="col-form-label">Facility Id</label>
+              <input type="text" class="form-control" placeholder="Enter Facility ID" name="identifier" required>
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label">Facility Name</label>
+              <input type="text" class="form-control" placeholder="Enter Facility Name" name="name" required>
+            </div>
+            <div class="d-flex align-items-center">
+              <label class="col-form-label">Status</label>
+              <div class="status-toggle ms-3">
+                <input id="f_status_add" class="check" type="checkbox" name="status" checked>
+                <label for="f_status_add" class="checktoggle">checkbox</label>
+              </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-end">
+              <button type="button" data-bs-dismiss="modal" class="btn btn-light me-2">Cancel</button>
+              <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add Facility Master Popup --> 
+  
+  <!-- Edit Facility Master Popup -->
+  <div class="offcanvas offcanvas-end offcanvas-medium" tabindex="-1" id="edit_facility" role="dialog">
+    <div class="offcanvas-header border-bottom">
+      <h4>Edit Facility Master</h4>
+      <button type="button" class="btn-close custom-btn-close border p-1 me-0 d-flex align-items-center justify-content-center rounded-circle" data-bs-dismiss="offcanvas" aria-label="Close"> <i class="ti ti-x"></i> </button>
+    </div>
+    <div class="offcanvas-body">
+      <form action="invoices.html">
+        <div>
+          <div class="row">
+            <div class="mb-3">
+              <label class="col-form-label">Facility Id</label>
+              <input type="text" class="form-control" placeholder="Enter Facility ID" value="" name="identifier" required>
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label">Facility Name<span class="text-danger"> *</span></label>
+              <input class="form-control" type="text" value="" placeholder="Enter Facility Name" name="name" required>
+            </div>
+            <div class="d-flex align-items-center">
+              <label class="col-form-label">Status</label>
+              <div class="status-toggle ms-3">
+                <input id="f_status_edit" class="check" type="checkbox" name="status" checked>
+                <label for="f_status_edit" class="checktoggle">checkbox</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-end">
+          <button type="button" data-bs-dismiss="offcanvas" class="btn btn-light me-2">Cancel</button>
+          <button type="submit" class="btn btn-primary edit_facility">Edit Facility</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Edit Facility Master Popup -->
+   <!-- Delete Facility Master Popup -->
+  <div class="modal fade" id="delete_facility" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="text-center">
+            <div class="avatar avatar-xl bg-danger-light rounded-circle mb-3"> <i class="ti ti-trash-x fs-36 text-danger"></i> </div>
+            <h4 class="mb-2">Remove Facility?</h4>
+            <p class="mb-0">Are you sure you want to remove <br>
+              facility you selected.</p>
+            <div class="d-flex align-items-center justify-content-center mt-4">
+              <a href="#" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+              <a href="javascript:void(0)" class="btn btn-danger delete-confirm">Yes, Delete it</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Delete Facility Master Popup -->
+
+<%- contentFor('pageMeta') %>
+<!-- Meta Tags -->
+
+<!-- Title -->
+<title><%= title %></title>
+
+<%- contentFor('topStyles') %>
+<link rel="stylesheet" href="/assets/plugins/tabler-icons/tabler-icons.css">
+<link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css">
+<link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="/assets/plugins/flatpickr/flatpickr.min.css">
+<link rel="stylesheet" href="/assets/plugins/%40simonwep/pickr/themes/nano.min.css">
+<link rel="stylesheet" href="/assets/plugins/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<%- contentFor('bottomScript') %>
+<script>
+    const facility_data = <%- JSON.stringify(facility_data) %>;
+</script>
+<script type="text/javascript" src="/assets/js/jquery-3.7.1.min.js"></script> 
+<script type="text/javascript" src="/assets/js/bootstrap.bundle.min.js"></script> 
+<script type="text/javascript" src="/assets/js/feather.min.js"></script> 
+<script type="text/javascript" src="/assets/js/jquery.slimscroll.js"></script> 
+<script type="text/javascript" src="/assets/js/jquery.slimscroll.min.js"></script> 
+<script type="text/javascript" src="/assets/js/moment.min.js"></script> 
+<script type="text/javascript" src="/assets/plugins/daterangepicker/daterangepicker.js"></script> 
+<script type="text/javascript" src="/assets/plugins/apexchart/apexcharts.min.js"></script> 
+<script type="text/javascript" src="/assets/plugins/apexchart/chart-data.js"></script> 
+<script type="text/javascript" src="/assets/js/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="/assets/js/dataTables.bootstrap5.min.js"></script> 
+<script type="text/javascript" src="/assets/js/jsonscript.js"></script> 
+<script type="text/javascript" src="/assets/plugins/%40simonwep/pickr/pickr.es5.min.js"></script> 
+<script type="text/javascript" src="/assets/js/theme-colorpicker.js"></script>
+<script type="text/javascript" src="/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="/assets/plugins/sweetalert/sweetalerts.min.js"></script> 
+<script type="text/javascript" src="/assets/js/script.js"></script>
+<script type="text/javascript" src="/assets/js/helper.js"></script>
+<script type="text/javascript" src="/assets/js/facilityMaster.js"></script>

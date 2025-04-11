@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="150" height="38" viewBox="0 0 150 38">
+  <defs>
+    <clipPath id="clip-iPhone_14_Pro_Max_1">
+      <rect width="150" height="38"/>
+    </clipPath>
+  </defs>
+  <g id="iPhone_14_Pro_Max_1" data-name="iPhone 14 Pro Max – 1" clip-path="url(#clip-iPhone_14_Pro_Max_1)">
+    <text id="Trace" transform="translate(46 25)" fill="#020288" font-size="30" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="0" y="0">TRACE</tspan></text>
+    <text id="Powered_by_indochine_intl" data-name="Powered by indochine intl" transform="translate(46 35)" fill="#4a4a4a" font-size="8.9" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="0">Powered by indochine intl</tspan></text>
+    <g id="Group_1" data-name="Group 1">
+      <g id="clue" transform="translate(0.269 -1.713)">
+        <circle id="Ellipse_1" data-name="Ellipse 1" cx="14.057" cy="14.057" r="14.057" transform="translate(6.512 6.512)" fill="#b2f0fb"/>
+        <path id="Path_1" data-name="Path 1" d="M31.613,3.5a6.177,6.177,0,0,0-6.024,6.024,5.667,5.667,0,0,0,4.217,5.623V30.408a3.922,3.922,0,0,1-7.832.2V10.93A7.372,7.372,0,0,0,14.745,3.5a7.084,7.084,0,0,0-7.028,7.43V26.191A5.667,5.667,0,0,0,3.5,31.814a6.177,6.177,0,0,0,6.024,6.024,6.177,6.177,0,0,0,6.024-6.024,5.667,5.667,0,0,0-4.217-5.623V10.93a4.028,4.028,0,0,1,4.016-4.016,3.992,3.992,0,0,1,3.815,4.016V30.609a7.229,7.229,0,1,0,14.458,0V15.147a5.627,5.627,0,0,0,4.418-5.623A6.86,6.86,0,0,0,31.613,3.5ZM12.135,31.613A2.611,2.611,0,1,1,9.524,29,2.658,2.658,0,0,1,12.135,31.613ZM31.613,12.135a2.611,2.611,0,1,1,2.611-2.611A2.658,2.658,0,0,1,31.613,12.135Z" transform="translate(0 0)" fill="#020288"/>
+      </g>
+    </g>
+  </g>
+</svg>
