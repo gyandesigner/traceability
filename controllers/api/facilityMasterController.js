@@ -11,6 +11,8 @@ const getAllFacility = async (req, res) => {
 }
 const getRecentFacility = async (req, res) => {
     try {      
+        console.log(req)
+        console.log("XXXXXXXXXXXXXXXXXX")
         const length = parseInt(req.params.length, 10);
         if (isNaN(length) || length <= 0) {
             return res.status(400).json({ success: false, message: 'Invalid length parameter' });

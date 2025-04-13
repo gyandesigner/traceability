@@ -1,3 +1,5 @@
+import XLSX from 'xlsx';
+
 import facilityServices from '../../services/facilityServices.js';
 import supplierServices from '../../services/supplierServices.js';
 
@@ -88,5 +90,24 @@ const updateSupplierPage = async (req,res) => {
         console.log(error);
     }
 }
+const getSupplierUploadPage = async (req,res) => {
+    console.log("<-------------- Supplier Upload Page-------------->");   
+    try {
+        console.time('\n\n<-----------------supplierUpload----------------->\n\n');
+        
+        const model = {
+            title: '',
+            layout: 'layouts/layout',
+        }
 
-export default { getSupplierListPage, getAddSupplierListPage, updateSupplierPage };
+        model.title = 'Supplier Upload | Tracibility';
+        model.layout = 'layouts/dashboard-layout';
+
+        console.timeEnd('\n\n<-----------------supplierUpload----------------->\n\n');
+        res.render("supplier/supplierUpload", model)
+    } catch(error) {
+        console.log(error)
+    }
+    
+}
+export default { getSupplierListPage, getAddSupplierListPage, updateSupplierPage, getSupplierUploadPage };

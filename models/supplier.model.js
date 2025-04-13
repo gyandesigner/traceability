@@ -99,5 +99,43 @@ const updateSupplier = async (_id, supplier) => {
     await closeConnection(pool);
   }
 }
+const _insertSupplierData = async (query, values) => {
+  const pool = createConnection();
+  try {
+    console.log('Query:', query);
+    console.log('Values:', values);
+    const result = await executeQuery( pool, query, values);
+    console.log('Insert Result:', result);
+    console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+    return { success: true, message: 'Supplier uploaded successfully', data: result };    
+  } catch (error) {
+    throw new Error(error)
+  } finally {    
+    await closeConnection(pool);
+  }
+}
+const uploadSupplier = async (data) => {
+  const pool = createConnection();
+  try {
 
-export default { fetchSupplierData, addSupplier, fetchRecentSupplierData, fetchSupplierCount, deleteSupplier, fetchSupplierById, updateSupplier };
+    const columns = Object.keys(data[0]);
+    const placeholders = columns.map(() => '?').join(', ');
+    const insertQuery = `INSERT INTO supplier_data (${columns.join(', ')}) VALUES (${placeholders})`;
+
+    let res = [];
+
+    for (const row of data) {
+      const values = columns.map(column => row[column]);
+      const insertRes = await _insertSupplierData(insertQuery, values);
+       res.push(insertRes);
+    }
+    return { success: true, message: 'Supplier uploaded successfully', data: res };
+
+  } catch (error) {
+    throw new Error(error)
+  } finally {    
+    await closeConnection(pool);
+  }
+}
+
+export default { fetchSupplierData, addSupplier, fetchRecentSupplierData, fetchSupplierCount, deleteSupplier, fetchSupplierById, updateSupplier, uploadSupplier };
