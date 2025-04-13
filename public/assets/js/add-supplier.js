@@ -90,6 +90,7 @@ const addSupplierForm = () => {
 		const state = $(this).find("input[name=state]");
 		const agent = $(this).find("input[name=agent]");
 		const registrationId = $(this).find("input[name=registrationId]");
+		const status = $(this).find("select[name=status]");
 		const facility = $(this).find("input[name='facility']:checked");
 
 
@@ -101,6 +102,7 @@ const addSupplierForm = () => {
 		const cityVal = city.val().trim();
 		const stateVal = state.val().trim();
 		const agentVal = agent.val().trim();
+		const statusVal = status.val().trim();
 		const registrationIdVal = registrationId.val().trim();
 		const facilityVal = Array.from(facility);
 		
@@ -163,6 +165,11 @@ const addSupplierForm = () => {
             agent.addClass('is-invalid');
             isValid = false;
         }
+		if (statusVal === '0') {
+			$("<div class='invalid-feedback'>Please select valid status.</div>").insertAfter(status);
+            status.addClass('is-invalid');
+            isValid = false;
+        }
 
 		const selFacility = facilityVal.map(checkbox => checkbox.value).toString();
 			
@@ -178,6 +185,7 @@ const addSupplierForm = () => {
 				agent: agentVal,
 				facility: selFacility,
 				registrationId: registrationIdVal,
+				status: statusVal,
 			}
 			addSupplierFormData(data)						
 		}	

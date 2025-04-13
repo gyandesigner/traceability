@@ -26,8 +26,8 @@ const appendFacility = () => {
                 } },			
 				{ "render": function ( data, type, row ){
 					let date = new Date(row['created_at']);
-					let options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-					let formattedDate = date.toLocaleDateString('en-US', options);
+					let options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+					let formattedDate = date.toLocaleDateString('en-in', options);
 					return formattedDate;
 				}},
 				{ "render": function ( data, type, row ){

@@ -17,9 +17,9 @@ const fetchSupplierData = async () => {
 const addSupplier = async (supplier) => {
   const pool = createConnection();
   try {
-    const { name, address, country, state, city, mobile, email, agent, registrationId, facility, userId, userName, userEmail } = supplier;
-    const sql = `INSERT INTO supplier_data (name, address, country, state, city, mobile, email, agent_name, registration_id, facility, creator_id, creator_name, creator_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    const params = [name, address, country, state, city, mobile, email, agent, registrationId, facility, userId, userName, userEmail];
+    const { name, address, country, state, city, mobile, email, agent, registrationId, status, facility, userId, userName, userEmail } = supplier;
+    const sql = `INSERT INTO supplier_data (name, address, country, state, city, mobile, email, agent_name, registration_id, status, facility, creator_id, creator_name, creator_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const params = [name, address, country, state, city, mobile, email, agent, registrationId, status, facility, userId, userName, userEmail];
     const result = await executeQuery( pool, sql, params);
 
     return { success: true, message: 'Suplier added successfully', insertId: result.insertId };
@@ -87,10 +87,10 @@ const fetchSupplierById = async (id) => {
 const updateSupplier = async (_id, supplier) => {
   const pool = createConnection();
   try {
-    const { name, address, country, state, city, mobile, email, agent, registrationId, facility } = supplier;
-    const sql = `UPDATE supplier_data SET name = ?, address = ?, country = ?, state = ?, city = ?, mobile = ?, email = ?, agent_name = ?, registration_id = ?, facility = ? WHERE _id = ?`;
+    const { name, address, country, state, city, mobile, email, agent, registrationId, status, facility } = supplier;
+    const sql = `UPDATE supplier_data SET name = ?, address = ?, country = ?, state = ?, city = ?, mobile = ?, email = ?, agent_name = ?, registration_id = ?, status = ?, facility = ? WHERE _id = ?`;
     const strId = `${_id}`;
-    const params = [name, address, country, state, city, mobile, email, agent, registrationId, facility, strId];
+    const params = [name, address, country, state, city, mobile, email, agent, registrationId, status, facility, strId];
     const result = await executeQuery( pool, sql, params);
     return { success: true, message: 'Supplier updated successfully' };
   } catch (error) {
