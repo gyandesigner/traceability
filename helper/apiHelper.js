@@ -9,6 +9,9 @@ const axiosInstance = axios.create({
     }
 });
 function handleError(error) {
+    console.log("-------------api error recieved--------------")
+    console.log(error)
+    console.log("-------------api error recieved--------------")
     if (error.response) {
         throw new Error(error.response.data.message || 'An error occurred');
     } else if (error.request) {
