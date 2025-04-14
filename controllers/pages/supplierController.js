@@ -16,6 +16,9 @@ const getSupplierListPage = async (req,res) => {
         const supplierRes = await supplierServices.getAllSupplier();
         console.log("suppier res recieved")
         if(supplierRes && supplierRes.data) {
+            supplierRes.data.sort((a, b) => {
+                return new Date(b.created_at) - new Date(a.created_at);
+            })
             model.supplier_data = supplierRes.data;
         } 
         

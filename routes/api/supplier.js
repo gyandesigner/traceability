@@ -7,7 +7,7 @@ const router = express.Router();
 const storage = multer.memoryStorage(); 
 const upload = multer({ storage: storage }); 
 
-router.post('/add-supplier', supplierController.addSupplier);
+router.post('/add-supplier', authenticateToken, supplierController.addSupplier);
 router.get('/get-all-supplier', supplierController.getAllSupplierList);
 router.get('/get-recent-supplier/:length', supplierController.getRecentSupplier);
 router.get('/get-supplier-count', supplierController.getSupplierCount);
