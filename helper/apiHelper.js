@@ -8,14 +8,10 @@ const axiosInstance = axios.create({
         'Content-Type': 'application/json'
     }
 });
-export function setAuthToken(token) {
-    if (token) {
-        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    } else {
-        delete axiosInstance.defaults.headers.common['Authorization'];
-    }
-}
 function handleError(error) {
+    console.log("-------------api error recieved--------------")
+    console.log(error)
+    console.log("-------------api error recieved--------------")
     if (error.response) {
         throw new Error(error.response.data.message || 'An error occurred');
     } else if (error.request) {
@@ -61,5 +57,4 @@ export default {
     post,
     put,
     delete: del,
-    setAuthToken
 };

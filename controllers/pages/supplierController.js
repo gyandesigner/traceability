@@ -1,62 +1,111 @@
+import XLSX from 'xlsx';
+
+import facilityServices from '../../services/facilityServices.js';
+import supplierServices from '../../services/supplierServices.js';
+
+
 const getSupplierListPage = async (req,res) => {
     console.log("--------------Supplier List Page--------------");
-    
-    const model = {
-        title: '',
-        layout: 'layouts/layout',
-        supplier_data: []
-    }
-    model.title = 'Supplier List | Tracibility';
-
-    try { 
-
-        const response = await fetch('http://localhost:5500/api/get-all-supplier', { method: 'POST' }); 
-
-        if (!response.ok) {
-            model.supplier_data = [];
+    try{
+        console.time('supplierPage === > ');
+        const model = {
+            title: '',
+            layout: 'layouts/layout',
+            supplier_data: []
         }
-        const responseData = await response.json();
-
-        model.supplier_data = responseData.data;
+        const supplierRes = await supplierServices.getAllSupplier();
+        console.log("suppier res recieved")
+        if(supplierRes && supplierRes.data) {
+            model.supplier_data = supplierRes.data;
+        } 
         
-    } catch (error) {
-        model.supplier_data = [];
+        model.title = 'Supplier List | Tracibility';
+        model.layout = 'layouts/dashboard-layout';
+        
+        console.timeEnd('supplierPage === > ');
+    res.render('supplier/supplierList', model);
+
+    } catch(error) {
+        console.log(error);
     }
 
-    model.layout = 'layouts/dashboard-layout';
-    res.render('supplier/supplierList', model);
+
+    
 }
 
 const getAddSupplierListPage = async (req,res) => {
     console.log("-------------- Add Supplier Page--------------");
-    
-    const model = {
-        title: '',
-        layout: 'layouts/layout',
-        facility_master: []
-    }
-    model.title = 'Add Supplier | Tracibility';
-    
-
-    try { 
-
-        const facilityRes = await fetch('http://localhost:5500/api/get-all-facility', { method: 'POST' }); 
-
-        if (!facilityRes.ok) {
-            model.facility_master = [];
+    try{
+        console.time('addFacility === > ');
+        const model = {
+            title: '',
+            layout: 'layouts/layout',
+            facility_master: []
         }
-        const facilityData = await facilityRes.json();
-
-        model.facility_master = facilityData.data;
+        const facilityRes = await facilityServices.getAllFacility();
+        if(facilityRes && facilityRes.data) {
+            model.facility_master = facilityRes.data;
+        }
         
-    } catch (error) {
-        model.facility_master = [];
+        model.title = 'Add Supplier | Tracibility';
+        model.layout = 'layouts/dashboard-layout';
+        
+        console.timeEnd('addFacility === > ');
+        res.render('supplier/addSupplier', model);
+    } catch(error) {
+        console.log(error);
     }
-
-
-
-    model.layout = 'layouts/dashboard-layout';
-    res.render('supplier/addSupplier', model);
 }
 
-export default { getSupplierListPage, getAddSupplierListPage };
+const updateSupplierPage = async (req,res) => {
+    console.log("-------------- Add Supplier Page--------------");
+    try{
+        console.time('updateSupplier === > ');
+        const model = {
+            title: '',
+            layout: 'layouts/layout',
+            supplier: [],
+            facility_master: []
+        }
+        const supplierId = req.params.supplierId;
+        console.log("supplierId === > ", supplierId);
+        const supplierRes = await supplierServices.getSupplierById(supplierId);
+        console.log(supplierRes, "supplierRes === > ");
+        if(supplierRes && supplierRes.data) {
+            model.supplier = supplierRes.data;
+        }
+        const facilityRes = await facilityServices.getAllFacility();
+        if(facilityRes && facilityRes.data) {
+            model.facility_master = facilityRes.data;
+        }
+        
+        model.title = 'Edit Supplier | Tracibility';
+        model.layout = 'layouts/dashboard-layout';
+        
+        console.timeEnd('updateSupplier === > ');
+        res.render('supplier/updateSupplier', model);
+    } catch(error) {
+        console.log(error);
+    }
+}
+const getSupplierUploadPage = async (req,res) => {
+    console.log("<-------------- Supplier Upload Page-------------->");   
+    try {
+        console.time('\n\n<-----------------supplierUpload----------------->\n\n');
+        
+        const model = {
+            title: '',
+            layout: 'layouts/layout',
+        }
+
+        model.title = 'Supplier Upload | Tracibility';
+        model.layout = 'layouts/dashboard-layout';
+
+        console.timeEnd('\n\n<-----------------supplierUpload----------------->\n\n');
+        res.render("supplier/supplierUpload", model)
+    } catch(error) {
+        console.log(error)
+    }
+    
+}
+export default { getSupplierListPage, getAddSupplierListPage, updateSupplierPage, getSupplierUploadPage };

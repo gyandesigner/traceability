@@ -62,9 +62,9 @@
                 <table class="table">
                   <thead class="thead-light">
                     <tr>
-                      <th>Id</th>
-                      <th>Identifier</th>
-                      <th>Name</th>
+                      <th>S.No.</th>
+                      <th>Facility Id</th>
+                      <th>Facility Name</th>
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -73,11 +73,10 @@
                   <% 
                     const btnColor = (facility.status === 'active') ? 'success' : (facility.status === 'pending') ? 'secondary' : (facility.status === 'inactive') ? 'danger' : 'info';
                     let count = idx + 1;
-
                   %>                    
                     <tr>
                       <td><%= count %></td>
-                      <td><%= facility.identifier %></td>
+                      <td><%= facility.id %></td>
                       <td><%= facility.name %></td>
                       <td><span class="badge badge-pill badge-status bg-<%= btnColor %>"><%= facility.status %></span></td>
                     </tr>
@@ -88,7 +87,9 @@
               <% } else { %>
                 <div class="noDataFound d-flex align-items-center justify-content-center flex-column" style="height:100%;">
                   <strong>No Data Found </strong>
-                  <div class="mb-3 mt-4"><button type="submit" class="btn btn-primary w-100">Add Facility Master</button></div>
+                  <div class="mb-3 mt-4">
+                    <a href="/facility" class="btn btn-primary w-100">Add Facility</a>
+                  </div>
                 </div>
               <% } %>
             </div>
@@ -110,12 +111,12 @@
               <table class="table">
                 <thead class="thead-light">
                   <tr>
-                    <th>Id</th>
+                    <th>S.No.</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Mobile</th>
                     <th>Agent</th>
-                    <th>Facility</th>
+                    <th>Facility Id</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -129,7 +130,7 @@
                         <td><%= supplier.name %></td>
                         <td><%= supplier.email %></td>
                         <td><%= supplier.mobile %></td>
-                        <td><%= supplier.Agent %></td>
+                        <td><%= supplier.agent_name %></td>
                         <td><%= supplier.facility %></td>
                       </tr>
                     <% }) %>
@@ -139,7 +140,9 @@
             <% } else { %>    
               <div class="noDataFound d-flex align-items-center justify-content-center flex-column" style="height:100%;">
                 <strong>No Data Found </strong>
-                <div class="mb-3 mt-4"><button type="submit" class="btn btn-primary w-100">Add Facility Master</button></div>
+                <div class="mb-3 mt-4">
+                  <a href="/supplier/add" class="btn btn-primary w-100">Add Supplier</a>
+                </div>
               </div>
             <% } %>
           </div>
@@ -157,12 +160,6 @@
 <link rel="stylesheet" href="/assets/plugins/tabler-icons/tabler-icons.css">
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/css/style.css">
-
-<!--<link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css">
-<link rel="stylesheet" href="/assets/plugins/flatpickr/flatpickr.min.css">
-<link rel="stylesheet" href="/assets/plugins/%40simonwep/pickr/themes/nano.min.css">
-<link rel="stylesheet" href="/assets/plugins/daterangepicker/daterangepicker.css">
-<link rel="stylesheet" href="/assets/css/dataTables.bootstrap5.min.css">-->
 
 <%- contentFor('bottomScript') %>
 <script>console.log("vivek")</script>

@@ -5,7 +5,7 @@
         <div class="page-header">
           <div class="row">
             <div class="col">
-              <h3 class="page-title">Add Supplier</h3>
+              <h3 class="page-title">Edit Supplier</h3>
             </div>
           </div>
         </div>
@@ -14,31 +14,31 @@
           <div class="card-header">
             <h5 class="card-title">Supplier Information</h5>
           </div>
-
           <div class="card-body">
-            <form action="#" id="add-supplier">
+            <form id="update-supplier">
+              <input type="hidden" name="id" value="<%= supplier._id %>">
               <div class="row">
                 <div class="col-md-4 mb-3">
-                  <label class="form-label">Supplier Name<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="name" required>
+                  <label class="form-label">Supplier Name</label>
+                  <input type="text" class="form-control" value="<%= supplier.name %>" name="name" required>
                 </div>
                 <div class="col-md-4 mb-3">
-                  <label class="form-label">Email<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="email" required>
+                  <label class="form-label">Email</label>
+                  <input type="text" class="form-control" value="<%= supplier.email %>" name="email" required>
                 </div>
                 <div class="col-md-4 mb-3">
-                  <label class="form-label">Telephone/Mobile<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="mobile" required>
+                  <label class="form-label">Telephone/Mobile</label>
+                  <input type="text" class="form-control" value="<%= supplier.mobile %>" name="mobile" required>
                 </div>
               </div>
               <h5 class="card-title">Postal Address</h5>
               <div class="row">
                 <div class="col-md-12 mb-3">
-                  <label class="form-label">Address<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="address" required>
+                  <label class="form-label">Address</label>
+                  <input type="text" class="form-control" value="<%= supplier.address %>" name="address" required>
                 </div>
                 <div class="col-md-4 mb-3">
-                  <label class="form-label">Country<span class="text-danger">*</span></label>
+                  <label class="form-label">Country</label>
                   <select class="form-select" name="country">
                     <option selected="" value="0">Select Country</option>
                     <option value="USA">USA</option>
@@ -48,25 +48,25 @@
                   </select>
                 </div>
                 <div class="col-md-4 mb-3">
-                  <label class="form-label">City<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="city" required>
+                  <label class="form-label">City</label>
+                  <input type="text" class="form-control" value="<%= supplier.city %>" name="city" required>
                 </div>
                 <div class="col-md-4 mb-3">
-                  <label class="form-label">Province/State<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="state" required>
+                  <label class="form-label">Province/State</label>
+                  <input type="text" class="form-control" value="<%= supplier.state %>" name="state" required>
                 </div>
-              </div>
+              </div>              
               <div class="row">              
                 <div class="col-md-4 mb-3">
-                  <label class="form-label">Agent<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="agent" required>
+                  <label class="form-label">Agent</label>
+                  <input type="text" class="form-control" value="<%= supplier.agent_name %>" name="agent" required>
                 </div>
                 <div class="col-md-4 mb-3">
                   <label class="form-label">Registration Id</label>
-                  <input type="text" class="form-control" name="registrationId">
+                  <input type="text" class="form-control" value="<%= supplier.registration_id %>" name="registrationId">
                 </div>
                 <div class="col-md-4 mb-3">
-                  <label class="form-label">Status*</label>
+                  <label class="form-label">Status</label>
                   <select class="form-select" name="status">
                     <option value="0">Status</option>
                     <option value="active" selected>Active</option>
@@ -140,4 +140,4 @@
 <script type="text/javascript" src="/assets/plugins/sweetalert/sweetalerts.min.js"></script> 
 <script type="text/javascript" src="/assets/js/script.js"></script>
 <script type="text/javascript" src="/assets/js/helper.js"></script>
-<script type="text/javascript" src="/assets/js/add-supplier.js"></script>
+<script type="text/javascript" src="/assets/js/update-supplier.js"></script>

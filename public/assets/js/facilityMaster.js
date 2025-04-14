@@ -4,7 +4,6 @@ const appendFacility = () => {
 			"bFilter": false, 
 			"bInfo": false,
 			"autoWidth": true,
-			"order": [[4, 'desc']],
 			"language": {
 				search: ' ',
 				sLengthMenu: '_MENU_',
@@ -22,13 +21,23 @@ const appendFacility = () => {
 			},	
 			"data": facility_data,
 			"columns": [
-				{ "data": "_id" },
+				{ "data": function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                } },			
 				{ "render": function ( data, type, row ){
-					return '' + row['identifier'].toUpperCase() + '';
+					let date = new Date(row['created_at']);
+					let options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+					let formattedDate = date.toLocaleDateString('en-in', options);
+					return formattedDate;
 				}},
 				{ "render": function ( data, type, row ){
-					const fName = helperJS.textCamelCase(row['name']);
-					return '' + fName + '';
+					return '' + row['creater_name'] + '';
+				}},	
+				{ "render": function ( data, type, row ){
+					return '' + row['id'] + '';
+				}},
+				{ "render": function ( data, type, row ){
+					return '' + row['name'] + '';
 				}},
 				{ "render": function ( data, type, row ){
 					let class_name, status_name;
@@ -45,18 +54,11 @@ const appendFacility = () => {
 					return '<span class="badge badge-pill badge-status '+class_name+'" >'+status_name+'</span>';
 				}},
 				{ "render": function ( data, type, row ){
-					let date = new Date(row['created_at']);
-					let options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-					let formattedDate = date.toLocaleDateString('en-US', options);
-					return formattedDate;
-				}},
-				{ "render": function ( data, type, row ){
-					const identifier = row['identifier'].toUpperCase();
 					const fName = helperJS.textCamelCase(row['name']);
 					return '<div class="dropdown table-action text-end">' +
                            '<a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>' +
                            '<div class="dropdown-menu dropdown-menu-right">' +
-                               '<a class="dropdown-item edit-facility" href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#edit_facility" data-id="' + row['_id'] + '" data-identifier="' + identifier + '" data-name="' + fName + '" data-status="' + row['status'] + '"><i class="ti ti-edit text-blue"></i> Edit</a>' + 
+                               '<a class="dropdown-item edit-facility" href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#edit_facility" data-id="' + row['_id'] + '" data-fid="' + row['id'] + '" data-name="' + fName + '" data-status="' + row['status'] + '"><i class="ti ti-edit text-blue"></i> Edit</a>' + 
                                '<a class="dropdown-item delete-facility" href="#" data-bs-toggle="modal" data-bs-target="#delete_facility" data-id="' + row['_id'] + '"><i class="ti ti-trash text-danger"></i> Delete</a>' + 
                            '</div>' +
 					'</div>';
@@ -67,22 +69,258 @@ const appendFacility = () => {
 }
 const deleteFacilityAjax = (id) =>{
     return $.ajax({
-      url: '/api/delete-facility/' + id, // Use the correct URL
+      url: '/api/delete-facility/' + id, 
       type: 'GET',
-      dataType: 'json', // Expect JSON response
+      dataType: 'json', 
     });
 }
-const deleteFacility = () => {
+const addFacilitydata = async (data) => {
+	try {
+		const bodyData = JSON.stringify(data);
+        const response = await fetch('/api/add-facility', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: bodyData 
+        });
 
+        if (!response.ok) {
+            const error = await response.json();
+            throw error; 
+        }
+
+        const responseData = await response.json();
+        if (responseData.success) {
+			if (responseData.success) {
+				var t;
+				Swal.fire({
+					title: "Facilty Added Sussfully!",
+					html: `Page will be reloaded in <strong>${t}</strong> milliseconds.`,
+					timer: 2e3,
+					confirmButtonClass: "btn btn-primary",
+					buttonsStyling: !1,
+					onBeforeOpen: function () {
+					Swal.showLoading(),
+						(t = setInterval(function () {
+						Swal.getContent().querySelector("strong").textContent =
+							Swal.getTimerLeft();
+						}, 100));
+					},
+					onClose: function () {
+						clearInterval(t);
+					},
+				}).then(function (t) {
+					t.dismiss === Swal.DismissReason.timer && location.reload();
+				});
+				
+			} 
+        }
+    } catch (error) {		
+        if (error && error.message) {
+			console.log(error.message)
+			Swal.fire({
+				title: "Error",
+				text: error.message || "Some error found, Please try again later",
+				icon: "error",
+				confirmButtonClass: "btn btn-primary",
+				buttonsStyling: !1,
+			})
+        } else {
+			console.log(error)
+			Swal.fire({
+				title: "Error",
+				text: "Login Failed: An unexpected error occurred.",
+				icon: "error",
+				confirmButtonClass: "btn btn-primary",
+				buttonsStyling: !1,
+			})
+        }
+    }
+}
+const addFacility = () => {
+	$('#add_facility_form').submit(function(e) {
+		e.preventDefault(); 
+		const fname = $(this).find("input[name=name]");
+		const fId = $(this).find("input[name=identifier]");
+		const fNameVal = fname.val().trim();
+		const fIdVal = fId.val().trim();
+		const fStatus = $(this).find("input[name=status]");		
+		let isValid = true;
+		if (!helperJS.isValidString(fNameVal) && fNameVal.length > 0) {
+			if(!fname.hasClass('is-invalid')) {
+				$(`<div class='invalid-feedback'>Facility name contains special characters or numbers.</div>`).insertAfter(fname);
+				fname.addClass('is-invalid');
+			}
+			fname.focus()
+			isValid = false;
+			return true
+		}
+		if (!helperJS.isValidString(fIdVal) && fIdVal.length > 0) {
+			if(!fId.hasClass('is-invalid')) {
+				$(`<div class='invalid-feedback'>Facility Id contains special characters or numbers.</div>`).insertAfter(fId);
+				fId.addClass('is-invalid');
+			}
+			fId.focus()
+			isValid = false;
+			return true
+		}
+		let f_status = (fStatus.is(':checked')) ? 'active' : 'pending';
+		const camelName = helperJS.textCamelCase(fNameVal);
+		const upperId = helperJS.textUpperCase(fIdVal);	
+		let data = {
+			id: upperId,
+			name: camelName,
+			status: f_status
+		}		
+		if (isValid) {			
+			addFacilitydata(data)
+		}
+	})
+}	
+const updateFacilitydata = async (data) => {
+	try {
+		if(!data) {
+			throw new Error('No data found!')
+		}
+		const { _id } = data;
+		const bodyData = JSON.stringify(data);
+        const response = await fetch(`/api/update-facility/${_id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: bodyData 
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            throw error; 
+        }
+
+        const responseData = await response.json();
+        if (responseData.success) {
+			var t;
+			Swal.fire({
+				title: "Facilty Updated Successfully!",
+				html: `Pgae will be reloaded in <strong>${t}</strong> milliseconds.`,
+				timer: 2e3,
+				confirmButtonClass: "btn btn-primary",
+				buttonsStyling: !1,
+				onBeforeOpen: function () {
+				Swal.showLoading(),
+					(t = setInterval(function () {
+					Swal.getContent().querySelector("strong").textContent =
+						Swal.getTimerLeft();
+					}, 100));
+				},
+				onClose: function () {
+					clearInterval(t);
+				},
+			}).then(function (t) {
+				t.dismiss === Swal.DismissReason.timer && location.reload();
+			});
+        }
+    } catch (error) {		
+		if (error && error.message) {
+			console.log(error.message)
+			Swal.fire({
+				title: "Error",
+				text: error.message || "Some error found, Please try again later",
+				icon: "error",
+				confirmButtonClass: "btn btn-primary",
+				buttonsStyling: !1,
+			})
+        } else {
+			console.log(error)
+			Swal.fire({
+				title: "Error",
+				text: "Update Failed: An unexpected error occurred.",
+				icon: "error",
+				confirmButtonClass: "btn btn-primary",
+				buttonsStyling: !1,
+			})
+        }
+    }
+}
+const editFacility = () => {
+	$('#edit_facility').on('show.bs.offcanvas', function (event) {
+		event.stopPropagation();
+		var button = $(event.relatedTarget);
+		const g_id = button.data('id');
+		const g_fId = button.data('fid');
+		const g_fName = button.data('name');
+		const g_fStatus = button.data('status');	
+	
+		const modal = $(this);
+		const identifier = modal.find("input[name=identifier]");
+		const name = modal.find("input[name=name]");
+		const status = modal.find("input[name=status]");
+
+		identifier.val(g_fId);
+		name.val(g_fName);
+
+		if(g_fStatus == 'active') {
+			status.prop('checked', true);
+		} else {
+			status.prop('checked', false);
+		}
+
+		$('#edit_facility_from').submit(function(event) {
+			event.preventDefault();
+			const fNameVal = name.val().trim();
+			const fIdVal = identifier.val().trim();
+			const f_status = (status.is(':checked')) ? 'active' : 'pending';
+
+			let isValid = true;
+			if (!helperJS.isValidString(fNameVal) && fNameVal.length > 0) {
+				if(!name.hasClass('is-invalid')) {
+					$(`<div class='invalid-feedback'>Facility name contains special characters or numbers.</div>`).insertAfter(name);
+					name.addClass('is-invalid');
+				}
+				name.focus()
+				isValid = false;
+				return true
+			}
+			name.removeClass('is-invalid')
+			if (!helperJS.isValidString(fIdVal) && fIdVal.length > 0) {
+				if(!identifier.hasClass('is-invalid')) {
+					$(`<div class='invalid-feedback'>Facility Id contains special characters or numbers.</div>`).insertAfter(identifier);
+					identifier.addClass('is-invalid');
+				}
+				identifier.focus()
+				isValid = false;
+				return true
+			}
+			identifier.removeClass('is-invalid')
+			
+			const camelName = helperJS.textCamelCase(fNameVal);
+			const upperId = helperJS.textUpperCase(fIdVal);	
+
+			const data = {
+				_id: g_id,
+				id: upperId,
+				name: camelName,
+				status: f_status
+			}	
+			
+			if (isValid) {
+				updateFacilitydata(data)
+			}				
+		})
+	})
+}
+const deleteFacility = () => {
 	$('#delete_facility').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget);
 		console.log(button)
 		let facilityId = button.data('id')
 		
 		const modal = $(this)
-		const dltBtn = modal.find('.delete-confirm')
+		const dltBtn = modal.find('.delete-confirm');
+		dltBtn.off('click');
 		dltBtn.on('click', function(evnt) {
 			evnt.preventDefault()
+			$('#delete_facility').modal('hide')
 			deleteFacilityAjax(facilityId).then(data => {
 				if (data.success) {
 					var t;
@@ -127,216 +365,6 @@ const deleteFacility = () => {
 		})
 	})
 }
-const editFacility = () => {
-	$('#edit_facility').on('show.bs.offcanvas', function (event) {
-		var button = $(event.relatedTarget);
-		const fId = button.data('id');
-		const fIdentifier = button.data('identifier');
-		const fName = button.data('name');
-		const fStatus = button.data('status');	
-		
-		const modal = $(this);
-		const identifier = modal.find("input[name=identifier]");
-		const name = modal.find("input[name=name]");
-		const status = modal.find("input[name=status]");
-
-		identifier.val(fIdentifier);
-		name.val(fName);
-
-		if(fStatus == 'active') {
-			status.prop('checked', true);
-		} else {
-			status.prop('checked', false);
-		}
-
-		const dltBtn = modal.find('.edit_facility');
-		dltBtn.off('click'); 
-		dltBtn.on('click', function(evnt) {
-				evnt.preventDefault()
-				const f_identifier = identifier.val().trim();
-				const f_name = name.val().trim();
-				
-				let isValid = true;
-
-				if (!isValidName(f_identifier)) {
-					if(!identifier.hasClass('is-invalid')) {
-						$("<div class='invalid-feedback'>Please enter Facility id.</div>").insertAfter(identifier);
-						identifier.addClass('is-invalid');
-						isValid = false;
-						return true
-					}
-					isValid = false;
-				}
-				if (!isValidName(f_name)) {
-					if(!name.hasClass('is-invalid')) {
-						$("<div class='invalid-feedback'>Please enter valid Facility name.</div>").insertAfter(name);
-						name.addClass('is-invalid');
-						isValid = false;
-						return true
-					}
-					isValid = false;
-				}
-
-				let f_status = (status.is(':checked')) ? 'active' : 'inactive';
-				if (isValid) {
-					let data = {
-						identifier: f_identifier,
-						name: f_name,
-						status: f_status
-					}
-					console.log(data)	
-					data = JSON.stringify(data);
-
-
-					$.ajax({
-						type: 'POST',
-						url: '/api/update-facility/' + fId,	
-						data: data,
-						contentType: "application/json; charset=utf-8",
-						dataType: "json",
-						success: function(response) {
-							if (response.success) {
-								var t;
-								Swal.fire({
-									title: "Facilty Edited Sussfully!",
-									html: `Facility will be reloaded in <strong>${t}</strong> milliseconds.`,
-									timer: 2e3,
-									confirmButtonClass: "btn btn-primary",
-									buttonsStyling: !1,
-									onBeforeOpen: function () {
-									Swal.showLoading(),
-										(t = setInterval(function () {
-										Swal.getContent().querySelector("strong").textContent =
-											Swal.getTimerLeft();
-										}, 100));
-									},
-									onClose: function () {
-										clearInterval(t);
-									},
-								}).then(function (t) {
-									t.dismiss === Swal.DismissReason.timer && location.reload();
-								});
-							} 
-						},
-						error: function(error) {
-							Swal.fire({
-								title: "Error",
-								text: "Error Found!",
-								icon: "error",
-								confirmButtonClass: "btn btn-primary",
-								buttonsStyling: !1,
-							});
-						}
-					});
-
-				}
-				
-			
-		})
-	})
-}
-const isValidName = (name) => {
-	if (typeof name !== 'string') {
-		return false;
-	}
-	const trimmedName = name.trim();
-	if (trimmedName === '') {
-		return false;
-	}
-	const nameRegex = /^[a-zA-Z\s'-]+$/;
-	return nameRegex.test(trimmedName);
-}
-const addFacility = () => {
-	$('#addFacilityForm').submit(function(e) {
-		e.preventDefault(); 
-		const identifier = $(this).find("input[name=identifier]");
-		const name = $(this).find("input[name=name]");
-		const status = $(this).find("input[name=status]");
-		const f_identifier = identifier.val().trim();
-		const f_name = name.val().trim();
-		
-
-		let isValid = true;
-
-		if (!isValidName(f_identifier)) {
-			if(!identifier.hasClass('is-invalid')) {
-				$("<div class='invalid-feedback'>Please enter Facility id.</div>").insertAfter(identifier);
-				identifier.addClass('is-invalid');
-				isValid = false;
-				return true
-			}
-			isValid = false;
-        }
-		if (!isValidName(f_name)) {
-			if(!name.hasClass('is-invalid')) {
-				$("<div class='invalid-feedback'>Please enter valid Facility name.</div>").insertAfter(name);
-				name.addClass('is-invalid');
-				isValid = false;
-				return true
-			}
-			isValid = false;
-        }
-
-		let f_status = (status.is(':checked')) ? 'active' : 'inactive';
-		
-		
-		if (isValid) {
-			let data = {
-				id: f_identifier,
-				name: f_name,
-				status: f_status
-			}
-			data = JSON.stringify(data)
-	
-	
-			$.ajax({
-				type: 'POST',
-				url: '/api/add-facility',
-				data: data,
-				contentType: "application/json; charset=utf-8",
-				dataType: "json",
-				success: function(response) {
-	
-					if (response.success) {
-						var t;
-						Swal.fire({
-							title: "Facilty Added Sussfully!",
-							html: `Facility will be reloaded in <strong>${t}</strong> milliseconds.`,
-							timer: 2e3,
-							confirmButtonClass: "btn btn-primary",
-							buttonsStyling: !1,
-							onBeforeOpen: function () {
-							Swal.showLoading(),
-								(t = setInterval(function () {
-								Swal.getContent().querySelector("strong").textContent =
-									Swal.getTimerLeft();
-								}, 100));
-							},
-							onClose: function () {
-								clearInterval(t);
-							},
-						}).then(function (t) {
-							t.dismiss === Swal.DismissReason.timer && location.reload();
-						});
-						
-					} 
-				},
-				error: function(error) {
-					Swal.fire({
-						title: "Error",
-						text: "Error Found!",
-						icon: "error",
-						confirmButtonClass: "btn btn-primary",
-						buttonsStyling: !1,
-					});
-				}
-			});
-		}
-	})
-}	
-
-
-
 
 const facilityPage = {
 	onReady: function() {
