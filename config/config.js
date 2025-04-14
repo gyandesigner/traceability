@@ -4,7 +4,7 @@ const env = process.env.NODE_ENV || 'development';
 const devConfig = {
     environment: "development",
     port: process.env.APP_PORT,
-    apiURL: `${process.env.BASE_URL}:${process.env.APP_PORT}/api`,
+    apiURL: `${process.env.BASE_URL}/api`,
     baseURL: `${process.env.BASE_URL}`,
     databaseMySQL: {
         host : process.env.DB_HOST,
