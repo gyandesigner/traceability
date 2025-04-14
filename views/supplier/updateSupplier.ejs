@@ -65,6 +65,16 @@
                   <label class="form-label">Registration Id</label>
                   <input type="text" class="form-control" value="<%= supplier.registration_id %>" name="registrationId">
                 </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Status</label>
+                  <select class="form-select" name="status">
+                    <option value="0">Status</option>
+                    <option value="active" selected>Active</option>
+                    <option class="inactive">Inactive</option>
+                    <option class="pending">Pending</option>
+                    <option class="blocked">Blocked</option>
+                  </select>
+                </div>
               </div>
               <div class="row">
                 <h5 class="card-title">Facility Master</h5>

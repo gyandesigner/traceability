@@ -1,0 +1,121 @@
+<div class="page-wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-header">
+          <div class="row">
+            <div class="col">
+              <h3 class="page-title">Upload Supplier</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="file-upload-wrapper w-100">
+              <form method="POST" enctype="multipart/form-data" id="upload_supplier_from">
+                <label class="file-upload-box mb-0">
+                    <input type="file" name="excelFile" class="file-upload-input" accept=".xlsx, .xls">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <h5 class="mb-2">Drag & Drop files here</h5>
+                        <p class="text-muted mb-0">or click to browse</p>
+                    </div>
+                </label>
+                <button type="submit" class="w-100 btn btn-primary mt-3">Upload</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<%- contentFor('pageMeta') %>
+<!-- Meta Tags -->
+
+<!-- Title -->
+<title><%= title %></title>
+
+<%- contentFor('topStyles') %>
+<style>
+
+.file-upload-wrapper {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.file-upload-box {
+    position: relative;
+    padding: 2rem;
+    text-align: center;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 100%;
+}
+
+.file-upload-box:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.file-upload-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.upload-content {
+    position: relative;
+    z-index: 0;
+}
+
+.upload-icon {
+    font-size: 2.5rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+
+</style>
+<link rel="stylesheet" href="/assets/plugins/tabler-icons/tabler-icons.css">
+<link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css">
+<link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="/assets/plugins/flatpickr/flatpickr.min.css">
+<link rel="stylesheet" href="/assets/plugins/%40simonwep/pickr/themes/nano.min.css">
+<link rel="stylesheet" href="/assets/plugins/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<%- contentFor('bottomScript') %>
+<script>
+   
+</script>
+<script type="text/javascript" src="/assets/js/jquery-3.7.1.min.js"></script> 
+<script type="text/javascript" src="/assets/js/bootstrap.bundle.min.js"></script> 
+<script type="text/javascript" src="/assets/js/feather.min.js"></script> 
+<script type="text/javascript" src="/assets/js/jquery.slimscroll.js"></script> 
+<script type="text/javascript" src="/assets/js/moment.min.js"></script> 
+<script type="text/javascript" src="/assets/plugins/daterangepicker/daterangepicker.js"></script> 
+<script type="text/javascript" src="/assets/plugins/apexchart/apexcharts.min.js"></script> 
+<script type="text/javascript" src="/assets/plugins/apexchart/chart-data.js"></script> 
+<script type="text/javascript" src="/assets/js/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="/assets/js/dataTables.bootstrap5.min.js"></script> 
+<script type="text/javascript" src="/assets/js/jsonscript.js"></script>
+<script type="text/javascript" src="/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="/assets/plugins/sweetalert/sweetalerts.min.js"></script> 
+<script type="text/javascript" src="/assets/js/script.js"></script>
+<script type="text/javascript" src="/assets/js/helper.js"></script>
+<script type="text/javascript" src="/assets/js/upload-supplier.js"></script>

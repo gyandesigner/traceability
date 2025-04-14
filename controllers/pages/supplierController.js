@@ -1,20 +1,20 @@
+import XLSX from 'xlsx';
+
 import facilityServices from '../../services/facilityServices.js';
 import supplierServices from '../../services/supplierServices.js';
 
 
 const getSupplierListPage = async (req,res) => {
     console.log("--------------Supplier List Page--------------");
-
-    console.log("-------------- Add Supplier Page--------------");
     try{
-        console.time('addFacility === > ');
+        console.time('supplierPage === > ');
         const model = {
             title: '',
             layout: 'layouts/layout',
             supplier_data: []
         }
         const supplierRes = await supplierServices.getAllSupplier();
-        console.log("supplierRes === > ", supplierRes);
+        console.log("suppier res recieved")
         if(supplierRes && supplierRes.data) {
             model.supplier_data = supplierRes.data;
         } 
@@ -22,7 +22,7 @@ const getSupplierListPage = async (req,res) => {
         model.title = 'Supplier List | Tracibility';
         model.layout = 'layouts/dashboard-layout';
         
-        console.timeEnd('addFacility === > ');
+        console.timeEnd('supplierPage === > ');
     res.render('supplier/supplierList', model);
 
     } catch(error) {
@@ -88,5 +88,24 @@ const updateSupplierPage = async (req,res) => {
         console.log(error);
     }
 }
+const getSupplierUploadPage = async (req,res) => {
+    console.log("<-------------- Supplier Upload Page-------------->");   
+    try {
+        console.time('\n\n<-----------------supplierUpload----------------->\n\n');
+        
+        const model = {
+            title: '',
+            layout: 'layouts/layout',
+        }
 
-export default { getSupplierListPage, getAddSupplierListPage, updateSupplierPage };
+        model.title = 'Supplier Upload | Tracibility';
+        model.layout = 'layouts/dashboard-layout';
+
+        console.timeEnd('\n\n<-----------------supplierUpload----------------->\n\n');
+        res.render("supplier/supplierUpload", model)
+    } catch(error) {
+        console.log(error)
+    }
+    
+}
+export default { getSupplierListPage, getAddSupplierListPage, updateSupplierPage, getSupplierUploadPage };

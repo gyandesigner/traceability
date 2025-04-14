@@ -1,7 +1,9 @@
+let supplierTable;;
 const appendSupplier = () => {
 	if($('#supplire-list-table').length > 0) {
-		$('#supplire-list-table').DataTable({
-			"bFilter": false, 
+		supplierTable = $('#supplire-list-table').DataTable({
+			"bFilter": true,
+			'searching': true, 
 			"bInfo": false,
 			"autoWidth": true,
 			"language": {
@@ -18,21 +20,28 @@ const appendSupplier = () => {
 			initComplete: (settings, json)=>{
 				$('.dataTables_paginate').appendTo('.datatable-paginate');
 				$('.dataTables_length').appendTo('.datatable-length');
+				$('#supplier_search').on('keyup', function(event) {
+					event.stopPropagation();
+					const searchedValue = this.value.trim();
+					console.log(searchedValue)
+					supplierTable.search(searchedValue).draw();
+				});
+
 			},	
 			"data":supplier_data,
 			"columns": [
 				{ "data": function (data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
-                } },
+                }},
 				{ "render": function ( data, type, row ){
 					let date = new Date(row['created_at']);
-					let options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-					let formattedDate = date.toLocaleDateString('en-US', options);
+					let options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+					let formattedDate = date.toLocaleDateString('en-in', options);
 					return formattedDate;
 				}},
 				{ "render": function ( data, type, row ){
 					return '' + row['name'] + '';
-				}},	
+				}, searchable: true },	
 				{ "render": function ( data, type, row ){
 					return '' + row['email'] + '';
 				}},	
@@ -167,13 +176,19 @@ const deleteSupplier = () => {
 	})
 }
 
-
+const searchSupplier = () => {
+	// $('#supplier_search').on('keydown', function(event) {
+	// 	event.stopPropagation();
+	// 	const searchedValue = this.value.trim();
+	// 	supplierTable.search(searchedValue).draw();
+	// });
+}
 
 
 
 const supplierList = {
 	onReady: function() {
-		console.log("DOM is Ready!")
+		searchSupplier();
 	},
 	onload: function() {
 		appendSupplier();
