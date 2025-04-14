@@ -1,4 +1,4 @@
-const addSupplierFormData = async (data) => {
+const updateSupplierFormData = async (data) => {
 	try {
 		if (!data) {
 			Swal.fire({
@@ -10,8 +10,9 @@ const addSupplierFormData = async (data) => {
 			})
 			return true
 		}
+		const id = data._id;
 		const bodyData = JSON.stringify(data);
-		const response = await fetch('/api/add-supplier', {
+		const response = await fetch(`/api/update-supplier/${id}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json; charset=utf-8',
@@ -29,7 +30,7 @@ const addSupplierFormData = async (data) => {
 			
 			var t;
 			Swal.fire({
-				title: "Supplier Added Sussfully!",
+				title: "Supplier Updated Sussfully!",
 				html: `Page will be reloaded in <strong>${t}</strong> milliseconds.`,
 				timer: 2e3,
 				confirmButtonClass: "btn btn-primary",
@@ -78,9 +79,10 @@ const addSupplierFormData = async (data) => {
 	}
 	
 }
-const addSupplierForm = () => {	
-	$('#add-supplier').submit(function(e) {     		
+const updateSupplier = () => {	
+	$('#update-supplier').submit(function(e) {     		
 		e.preventDefault(); 
+		const id = $(this).find("input[name=id]");
 		const name = $(this).find("input[name=name]");
 		const email = $(this).find("input[name=email]");
 		const mobile = $(this).find("input[name=mobile]");
@@ -93,6 +95,7 @@ const addSupplierForm = () => {
 		const facility = $(this).find("input[name='facility']:checked");
 
 
+		const idVal = id.val().trim();
 		const nameVal = name.val().trim();
 		const emailVal = email.val().trim();
 		const mobileVal = mobile.val().trim();
@@ -168,6 +171,7 @@ const addSupplierForm = () => {
 			
 		if (isValid) {
 			const data = {
+				_id: idVal,
 				name: nameVal,
 				email: emailVal,
 				mobile: mobileVal,
@@ -179,7 +183,7 @@ const addSupplierForm = () => {
 				facility: selFacility,
 				registrationId: registrationIdVal,
 			}
-			addSupplierFormData(data)						
+			updateSupplierFormData(data)						
 		}	
 	})
 
@@ -189,7 +193,7 @@ const supplierList = {
 		console.log("DOM is Ready!")
 	},
 	onload: function() {
-		addSupplierForm()
+		updateSupplier()
 	}
 }
 

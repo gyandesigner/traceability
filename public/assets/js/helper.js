@@ -16,4 +16,46 @@ const helperJS = {
 		).delay(delay).queue(function() { $(this).remove() })
 		)
 	},
+	textCamelCase: (name) => {
+		if (!name) { return ""; }
+		const parts = name.toLowerCase().split(' ');
+		const capitalizedParts = parts.map(part => {
+			if (part.length > 0) {
+			  return part.charAt(0).toUpperCase() + part.slice(1);
+			}
+			return "";
+		});
+		return capitalizedParts.join(' ');
+	},
+	textUpperCase: (name) => {
+		if (!name) { return ""; }
+		const parts = name.toLowerCase().split(' ');
+		const capitalizedParts = parts.map(part => {
+			if (part.length > 0) {
+			  return part.charAt(0).toUpperCase() + part.slice(1);
+			}
+			return "";
+		});
+		return capitalizedParts.join(' ').toUpperCase();
+	},
+	isValidString: (string) => {
+		const specialCharNumberRegex = /[^a-zA-Z\s]/;
+		const trimmedStr = string.trim();
+		if (specialCharNumberRegex.test(trimmedStr)) {
+		  return false;
+		} 
+		return true; 
+	},
+	isValidEmail: (email)  => {
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailRegex.test(email);
+	},
+	isValidNumber: (number)  => {
+		const mobRegex = /^\+?(?:[0-9] ?){6,14}[0-9]$/;
+		return mobRegex.test(number);
+	},
+	ucfirst: (string) => {
+		if (!string) { return ""; }
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	},
 }

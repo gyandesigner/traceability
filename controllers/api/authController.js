@@ -8,24 +8,25 @@ const userLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            return res.status(400).json({ message: 'Username and password are required' });
+            return res.status(400).json({ message: 'Email and password are required' });
         }
-        const userData = {email};
-        const user = await userModel.getUserByEmail(userData);
-        if (!user) {
-            return res.status(401).json({ message: 'Email not found' });
+        const userData = { email };
+        const checkUser = await userModel.getUserByEmail(userData);
+        if (!checkUser.success) {
+            return res.status(401).json({ message: checkUser.message });
         }
+        const user = checkUser.user;
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) {
-            throw new Error('Invalid credentials');
+            return res.status(401).json({ message: 'Invalid credentials' }); // More generic message
         }
-        const token = jwt.sign( { userId: user.id, role: user.role }, config.jwtSecret, { expiresIn: '1h' } );        
+        const token = jwt.sign( { _id: user.id, name: user.name, email: user.email }, config.jwtSecret, { expiresIn: '1h' } );
         res.cookie('jwt', token, { httpOnly: true });
         res.json({ success: true, token });
-
+    
     } catch (error) {
         console.error('Login error:', error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: error.message || 'Internal Server Error' });
     }
 }
 

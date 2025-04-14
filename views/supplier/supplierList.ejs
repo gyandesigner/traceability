@@ -3,42 +3,36 @@
     <div class="row">
       <div class="col-md-12">
         <div class="page-header">
-          <div class="row align-items-center">
+          <div class="row align-items-center ">
             <div class="col-12">
-              <h4 class="page-title">Supplier Data</h4>
+              <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+                <h3 class="page-title">Supplier Data</h3>
+                <a href="/supplier/add" class="btn btn-primary"><i class="ti ti-square-rounded-plus me-2"></i>Add New Supplier</a>
+              </div>
             </div>
           </div>
         </div>
+
         <div class="card">
-
-          <div class="card-header">
-            <!-- Search -->
-            <div class="row align-items-center">
-              <div class="col-sm-4">
-                <div class="icon-form mb-3 mb-sm-0">
-                  <span class="form-icon"><i class="ti ti-search"></i></span>
-                  <input type="text" class="form-control" placeholder="Search Activities">
-                </div>
-              </div>
-              <div class="col-sm-8">
-                <div class="text-sm-end">
-                  <a href="/supplier/add" class="btn btn-primary"><i class="ti ti-square-rounded-plus me-2"></i>Add New Supplier</a>
-                </div>
-              </div>
-            </div>
-            <!-- /Search -->
-          </div>
-
           <div class="card-body">
-            <!-- Activity List -->
             <div class="table-responsive custom-table">
-              <table class="table" id="supplire-list">
+              <table class="table" id="supplire-list-table">
                 <thead class="thead-light">
                   <tr>
-                    <th>ID</th>
+                    <th>S.No.</th>
+                    <th>Date</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Mobile</th>
+                    <th>Agent</th>
+                    <th>Address</th>
+                    <th>Country</th>
+                    <th>Registration Id</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Facility Master</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </thead>
                 <tbody>
                 </tbody>
@@ -52,14 +46,31 @@
                 <div class="datatable-paginate"></div>
               </div>
             </div>
-            <!-- /Activity List -->
-
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+  <!-- Delete Supplier -->
+  <div class="modal fade" id="delete_supplier" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="text-center">
+            <div class="avatar avatar-xl bg-danger-light rounded-circle mb-3"> <i class="ti ti-trash-x fs-36 text-danger"></i> </div>
+            <h4 class="mb-2">Remove Supplier?</h4>
+            <p class="mb-0">Are you sure you want to remove supplier you selected.</p>
+            <div class="d-flex align-items-center justify-content-center mt-4">
+              <a href="javascript:void(0)" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+              <a href="javascript:void(0)" class="btn btn-danger delete-confirm">Yes, Delete it</a> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Delete Supplier --> 
 
 
 
@@ -95,5 +106,8 @@
 <script type="text/javascript" src="/assets/js/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="/assets/js/dataTables.bootstrap5.min.js"></script> 
 <script type="text/javascript" src="/assets/js/jsonscript.js"></script> 
+<script type="text/javascript" src="/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="/assets/plugins/sweetalert/sweetalerts.min.js"></script> 
 <script type="text/javascript" src="/assets/js/script.js"></script>
+<script type="text/javascript" src="/assets/js/helper.js"></script>
 <script type="text/javascript" src="/assets/js/supplier-list.js"></script>

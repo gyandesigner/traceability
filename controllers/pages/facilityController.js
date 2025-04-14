@@ -11,9 +11,11 @@ const getFacilityMasterPage = async (req,res) => {
         }
         const facilityRes = await facilityServices.getAllFacility();
         if(facilityRes && facilityRes.data) {
+            facilityRes.data.sort((a, b) => {
+                return new Date(b.created_at) - new Date(a.created_at);
+            })
             model.facility_data = facilityRes.data;
         }
-        console.log("model.facility_data === > ", model.facility_data);
         model.title = 'Facility Master | Tracibility';
         model.layout = 'layouts/dashboard-layout';
         console.timeEnd('facilityPage === > ');

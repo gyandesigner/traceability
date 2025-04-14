@@ -1,5 +1,6 @@
 import facilityService from '../../services/facilityServices.js';
 import supplierServices from '../../services/supplierServices.js';
+import commonHelper from '../../helper/commonHelper.js';
 
 
 const getDashboardPage = async (req,res) => {
@@ -12,7 +13,7 @@ const getDashboardPage = async (req,res) => {
             facility_data: [],
             facility_count: 0,
             supplier_data: [],
-            supplier_count: [],
+            supplier_count: 0,
         }
         const facilityRes = await facilityService.getLatestFacility(5);
         if(facilityRes && facilityRes.data) {
@@ -23,8 +24,21 @@ const getDashboardPage = async (req,res) => {
             model.facility_count = facilityCountRes.data;
         }
         const supplierRes = await supplierServices.getLatestSupplier(5);
+        console.log("supplierRes === > ", supplierRes);
         if(supplierRes && supplierRes.data) {
-            model.supplier_data = supplierRes.data;
+            console.log(supplierRes.data)
+            const updatedSupplierData = supplierRes.data.map((supplier) => {
+                console.log(supplier)
+                let camelName = commonHelper.camelCaseName(supplier.name);
+                let camelAgent = commonHelper.camelCaseName(supplier.agent_name);
+                return {
+                    ...supplier,
+                    name: camelName,
+                    agent_name: camelAgent
+                }
+
+            })
+            model.supplier_data = updatedSupplierData;
         }
         const supplierCountRes = await supplierServices.getSupplierCount();
         if(supplierCountRes && supplierCountRes.data) {
