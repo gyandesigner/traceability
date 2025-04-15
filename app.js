@@ -24,6 +24,7 @@ app.set('views', join(__dirname, 'views'));
 
 
 app.use('/assets', express.static(join(__dirname, 'public/assets')));
+app.use('/download', express.static(join(__dirname, 'public/download')));
 
 app.use('/api', apiRoutes);
 app.use('/', pageRoutes);

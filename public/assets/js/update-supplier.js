@@ -46,7 +46,10 @@ const updateSupplierFormData = async (data) => {
 					clearInterval(t);
 				},
 			}).then(function (t) {
-				t.dismiss === Swal.DismissReason.timer && location.reload();
+				t.dismiss === Swal.DismissReason.timer;
+
+				// window.location('/supplier')
+				window.location.href = '/supplier'
 			});
 				
 			
