@@ -4,7 +4,7 @@ import { createConnection, executeQuery, closeConnection } from '../config/datab
 const fetchSupplierData = async () => {
   const pool = createConnection();
   try {
-    const sql = `SELECT * FROM supplier_data`;  
+    const sql = `SELECT * FROM supplier_data ORDER BY updated_at DESC`;  
     const result = await executeQuery( pool, sql);
     return result;
   } catch (error) {

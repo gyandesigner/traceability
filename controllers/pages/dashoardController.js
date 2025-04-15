@@ -18,7 +18,15 @@ const getDashboardPage = async (req,res) => {
         const facilityRes = await facilityService.getLatestFacility(5);
         console.log("facilityRes === > ", facilityRes);
         if(facilityRes && facilityRes.data) {
-            model.facility_data = facilityRes.data;
+            model.facility_data = facilityRes.data.map((facility) => {                
+                let date = new Date(facility.created_at);
+                let options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                let formattedDate = date.toLocaleDateString('en-in', options);
+                return {
+                    ...facility,
+                    created_at: formattedDate
+                }               
+            });
         }
         const facilityCountRes = await facilityService.getFacilityCount();
         
@@ -31,13 +39,20 @@ const getDashboardPage = async (req,res) => {
             const updatedSupplierData = supplierRes.data.map((supplier) => {
                 let camelName = commonHelper.camelCaseName(supplier.name);
                 let camelAgent = commonHelper.camelCaseName(supplier.agent_name);
+                let date = new Date(supplier.created_at);
+                let options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                let formattedDate = date.toLocaleDateString('en-in', options);
+
+
                 return {
                     ...supplier,
                     name: camelName,
-                    agent_name: camelAgent
+                    agent_name: camelAgent,
+                    created_at: formattedDate
                 }
 
             })
+
             model.supplier_data = updatedSupplierData;
         }
         const supplierCountRes = await supplierServices.getSupplierCount();

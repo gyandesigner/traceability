@@ -23,7 +23,6 @@ const appendSupplier = () => {
 				$('#supplier_search').on('keyup', function(event) {
 					event.stopPropagation();
 					const searchedValue = this.value.trim();
-					console.log(searchedValue)
 					supplierTable.search(searchedValue).draw();
 				});
 

@@ -63,9 +63,9 @@
                   <thead class="thead-light">
                     <tr>
                       <th>S.No.</th>
-                      <th>Facility Id</th>
+                      <th>Date</th>
                       <th>Facility Name</th>
-                      <th>Status</th>
+                      <th>Facility Id</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -76,9 +76,10 @@
                   %>                    
                     <tr>
                       <td><%= count %></td>
-                      <td><%= facility.id %></td>
+                      <td><%= facility.created_at %></td>
                       <td><%= facility.name %></td>
-                      <td><span class="badge badge-pill badge-status bg-<%= btnColor %>"><%= facility.status %></span></td>
+                      <td><%= facility.id %></td>
+                      <!-- <td><span class="badge badge-pill badge-status bg-<%= btnColor %>"><%= facility.status %></span></td> -->
                     </tr>
                   <% }) %>
                   </tbody>
@@ -112,11 +113,11 @@
                 <thead class="thead-light">
                   <tr>
                     <th>S.No.</th>
-                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Supplier Name</th>
                     <th>Email</th>
                     <th>Mobile</th>
-                    <th>Agent</th>
-                    <th>Facility Id</th>
+                    <th>Facility Master</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -127,10 +128,10 @@
                     %>                    
                       <tr>
                         <td><%= count %></td>
+                        <td><%= supplier.created_at %></td>
                         <td><%= supplier.name %></td>
                         <td><%= supplier.email %></td>
                         <td><%= supplier.mobile %></td>
-                        <td><%= supplier.agent_name %></td>
                         <td><%= supplier.facility %></td>
                       </tr>
                     <% }) %>
