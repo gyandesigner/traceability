@@ -14,8 +14,7 @@ const getSupplierListPage = async (req,res) => {
             supplier_data: []
         }
         const supplierRes = await supplierServices.getAllSupplier();
-        console.log("suppier res recieved")
-        console.log(supplierRes.data)
+        
         if(supplierRes && supplierRes.data) {
             model.supplier_data = supplierRes.data;
         } 
