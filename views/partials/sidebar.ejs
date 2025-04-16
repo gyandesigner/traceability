@@ -5,9 +5,32 @@
         <li>
           <ul>
             <li><a href="/dashboard"><i class="ti ti-layout-2"></i><span>Dashboard</span></a></li>
-            <li><a href="/facility"><i class="ti ti-brand-databricks"></i><span>Facility</span></a></li>
+            <li><a href="/facility"><i class="ti ti-brand-databricks"></i><span>Facility Master</span></a></li>
             <!-- <li><a href="/asn"><i class="ti ti-file-invoice"></i><span>ASN</span></a></li> -->
-            <li><a href="/supplier"><i class="ti ti-steam"></i><span>Supplier</span></a></li>
+            <!-- <li><a href="/supplier"><i class="ti ti-steam"></i><span>Supplier</span></a></li> -->
+            <li class="submenu">
+              <a href="javascript:void(0);">
+                <i class="ti ti-steam"></i>
+                <span>Supplier</span>
+                <span class="menu-arrow"></span>
+              </a>
+              <ul>
+                <li><a href="/supplier">Supplier Data</a></li>
+                <li><a href="/supplier/add">Add Supplier</a></li>
+                <li><a href="/supplier/upload">Supplier Bulk Upload</a></li>
+              </ul>
+            </li>
+            <li class="submenu">
+              <a href="javascript:void(0);">
+                <i class="ti ti-file-invoice"></i>
+                <span>ASN</span>
+                <span class="menu-arrow"></span>
+              </a>
+              <ul>
+                <li><a href="/asn">ASN Data</a></li>
+                <li><a href="/asn/add">Add ASN</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>
