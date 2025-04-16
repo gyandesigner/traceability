@@ -16,12 +16,14 @@ const getDashboardPage = async (req,res) => {
             supplier_count: 0,
         }
         const facilityRes = await facilityService.getLatestFacility(5);
-        console.log("facilityRes === > ", facilityRes);
         if(facilityRes && facilityRes.data) {
             model.facility_data = facilityRes.data.map((facility) => {                
                 let date = new Date(facility.created_at);
                 let options = { day: '2-digit', month: '2-digit', year: 'numeric' };
                 let formattedDate = date.toLocaleDateString('en-in', options);
+                console.log("XXXXXXXXXXXXXXXXXXXXXXXformattedDate")
+                console.log(formattedDate)
+                console.log("XXXXXXXXXXXXXXXXXXXXXXXformattedDate")
                 return {
                     ...facility,
                     created_at: formattedDate
@@ -43,6 +45,9 @@ const getDashboardPage = async (req,res) => {
                 let options = { day: '2-digit', month: '2-digit', year: 'numeric' };
                 let formattedDate = date.toLocaleDateString('en-in', options);
 
+                console.log("XXXXXXXXXXXXXXXXXXXXXXXformattedDate")
+                console.log(formattedDate)
+                console.log("XXXXXXXXXXXXXXXXXXXXXXXformattedDate")
 
                 return {
                     ...supplier,
